@@ -21,7 +21,7 @@ namespace ET
         public List<StartSceneConfig> Maps = new();
 
         public StartSceneConfig Match;
-        
+
         public StartSceneConfig Benchmark;
         
         public List<StartSceneConfig> GetByProcess(int process)
@@ -74,7 +74,7 @@ namespace ET
         }
     }
     
-    public partial class StartSceneConfig
+    public partial class StartSceneConfig: ISupportInitialize
     {
         public ActorId ActorId;
         
@@ -103,7 +103,7 @@ namespace ET
         {
             get
             {
-                if (innerIPPort == null)
+                if (this.innerIPPort == null)
                 {
                     this.innerIPPort = NetworkHelper.ToIPEndPoint($"{this.StartProcessConfig.InnerIP}:{this.Port}");
                 }

@@ -10,7 +10,7 @@ namespace ET.Server
         public const int Friend = 2;
         public const int Chat = 3;
         public const int GateSession = 4;
-        public const int Max = 10;
+        public const int Max = 100;
     }
     
     [ChildOf(typeof(LocationOneType))]
@@ -26,8 +26,10 @@ namespace ET.Server
     }
 
     [ChildOf(typeof(LocationManagerComoponent))]
-    public class LocationOneType: Entity, IAwake
+    public class LocationOneType: Entity, IAwake<int>
     {
+        public int LocationType;
+        
         public readonly Dictionary<long, ActorId> locations = new();
 
         public readonly Dictionary<long, EntityRef<LockInfo>> lockInfos = new();
@@ -36,5 +38,6 @@ namespace ET.Server
     [ComponentOf(typeof(Scene))]
     public class LocationManagerComoponent: Entity, IAwake
     {
+        public LocationOneType[] LocationOneTypes = new LocationOneType[LocationType.Max];
     }
 }

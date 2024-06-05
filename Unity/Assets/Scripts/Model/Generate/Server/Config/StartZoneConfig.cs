@@ -65,6 +65,8 @@ namespace ET
 		public string DBConnection { get; set; }
 		/// <summary>数据库名</summary>
 		public string DBName { get; set; }
+		/// <summary>区分类型</summary>
+		public int ZoneType { get; set; }
 
 	}
 }

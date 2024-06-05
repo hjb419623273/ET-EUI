@@ -28,13 +28,14 @@ namespace ET.Server
     public static partial class LocationOneTypeSystem
     {
         [EntitySystem]
-        private static void Awake(this LocationOneType self)
+        private static void Awake(this LocationOneType self, int locationType)
         {
+            self.LocationType = locationType;
         }
         
         public static async ETTask Add(this LocationOneType self, long key, ActorId instanceId)
         {
-            int coroutineLockType = ((int)self.Id << 16) | CoroutineLockType.Location;
+            int coroutineLockType = (self.LocationType << 16) | CoroutineLockType.Location;
             using (await self.Root().GetComponent<CoroutineLockComponent>().Wait(coroutineLockType, key))
             {
                 self.locations[key] = instanceId;
@@ -44,7 +45,7 @@ namespace ET.Server
 
         public static async ETTask Remove(this LocationOneType self, long key)
         {
-            int coroutineLockType = ((int)self.Id << 16) | CoroutineLockType.Location;
+            int coroutineLockType = (self.LocationType << 16) | CoroutineLockType.Location;
             using (await self.Root().GetComponent<CoroutineLockComponent>().Wait(coroutineLockType, key))
             {
                 self.locations.Remove(key);
@@ -54,7 +55,7 @@ namespace ET.Server
 
         public static async ETTask Lock(this LocationOneType self, long key, ActorId actorId, int time = 0)
         {
-            int coroutineLockType = ((int)self.Id << 16) | CoroutineLockType.Location;
+            int coroutineLockType = (self.LocationType << 16) | CoroutineLockType.Location;
             CoroutineLock coroutineLock = await self.Root().GetComponent<CoroutineLockComponent>().Wait(coroutineLockType, key);
 
             LockInfo lockInfo = self.AddChild<LockInfo, ActorId, CoroutineLock>(actorId, coroutineLock);
@@ -106,7 +107,7 @@ namespace ET.Server
 
         public static async ETTask<ActorId> Get(this LocationOneType self, long key)
         {
-            int coroutineLockType = ((int)self.Id << 16) | CoroutineLockType.Location;
+            int coroutineLockType = (self.LocationType << 16) | CoroutineLockType.Location;
             using (await self.Root().GetComponent<CoroutineLockComponent>().Wait(coroutineLockType, key))
             {
                 self.locations.TryGetValue(key, out ActorId actorId);
@@ -117,24 +118,21 @@ namespace ET.Server
     }
 
     [EntitySystemOf(typeof(LocationManagerComoponent))]
-    [FriendOf(typeof(LocationManagerComoponent))]
+    [FriendOf(typeof (LocationManagerComoponent))]
     public static partial class LocationComoponentSystem
     {
         [EntitySystem]
         private static void Awake(this LocationManagerComoponent self)
         {
+            for (int i = 0; i < self.LocationOneTypes.Length; ++i)
+            {
+                self.LocationOneTypes[i] = self.AddChild<LocationOneType, int>(i);
+            }
         }
         
         public static LocationOneType Get(this LocationManagerComoponent self, int locationType)
         {
-            LocationOneType locationOneType = self.GetChild<LocationOneType>(locationType);
-            if (locationOneType != null)
-            {
-                return locationOneType;
-            }
-            locationOneType = self.AddChildWithId<LocationOneType>(locationType);
-            return locationOneType;
+            return self.LocationOneTypes[locationType];
         }
-
     }
 }

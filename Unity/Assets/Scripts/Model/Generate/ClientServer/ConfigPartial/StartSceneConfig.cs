@@ -23,6 +23,8 @@ namespace ET
         public StartSceneConfig Match;
         
         public StartSceneConfig Benchmark;
+
+        public StartSceneConfig LoginCenterConfig;      //起服配置
         
         public List<StartSceneConfig> GetByProcess(int process)
         {
@@ -69,6 +71,9 @@ namespace ET
                     case SceneType.BenchmarkServer:
                         this.Benchmark = startSceneConfig;
                         break;
+                    case SceneType.LoginCenter:
+                        this.LoginCenterConfig = startSceneConfig;
+                        break;
                 }
             }
         }
@@ -98,7 +103,7 @@ namespace ET
 
         // 内网地址外网端口，通过防火墙映射端口过来
         private IPEndPoint innerIPPort;
-
+                        
         public IPEndPoint InnerIPPort
         {
             get

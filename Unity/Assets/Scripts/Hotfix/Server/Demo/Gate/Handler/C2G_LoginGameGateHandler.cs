@@ -1,0 +1,100 @@
+﻿using System.Runtime.CompilerServices;
+
+namespace ET.Server
+{
+    //Gate处理 LoginGameGate
+    [MessageSessionHandler(SceneType.Gate)]
+    public class C2G_LoginGameGateHandler : MessageSessionHandler< C2G_LoginGameGate, G2C_LoginGameGate>
+    {
+        protected override async ETTask Run(Session session, C2G_LoginGameGate request, G2C_LoginGameGate response)
+        {
+            Scene root = session.Root();
+            if (session.GetComponent<SessionLockingComponent>() != null)
+            {
+                response.Error = ErrorCode.ERR_RequestRepeatedly;
+                return;
+            }
+            
+            //令牌管理组件
+            //
+            string account = root.GetComponent<GateSessionKeyComponent>().Get(request.Key);
+            if (account == null)
+            {
+                response.Error = ErrorCode.ERR_ConnectGateKeyError;
+                response.Message = "Gate Key验证失败";
+                session?.Disconnect().Coroutine();
+                return;
+            }
+            
+            root.GetComponent<GateSessionKeyComponent>().Remove(request.Key);
+            session.RemoveComponent<SessionAcceptTimeoutComponent>();
+
+            CoroutineLockComponent coroutineLockComponent = root.GetComponent<CoroutineLockComponent>();
+
+            long instanceId = session.InstanceId;
+            using (session.AddComponent<SessionLockingComponent>())
+            {
+                using (await coroutineLockComponent.Wait(CoroutineLockType.LoginGate, request.AccountName.GetLongHashCode()))
+                {
+                    if (instanceId != session.InstanceId)
+                    {
+                        response.Error = ErrorCode.ERR_LoginGameGateError01;
+                        return;
+                    }
+                    
+                    //通知登錄中心服 记录本次登录的服务器Zone
+                    G2L_AddLoginRecord g2LAddLoginRecord = G2L_AddLoginRecord.Create();
+
+                    g2LAddLoginRecord.AccountName = request.AccountName;
+                    g2LAddLoginRecord.ServerId = root.Zone();
+
+                    L2G_AddLoginRecord l2GAddLoginRecord = (L2G_AddLoginRecord)await root.GetComponent<MessageSender>().Call(StartSceneConfigCategory.Instance.LoginCenterConfig.ActorId, g2LAddLoginRecord);
+
+                    if (l2GAddLoginRecord.Error != ErrorCode.ERR_Success)
+                    {
+                        response.Error = l2GAddLoginRecord.Error;
+                        session?.Disconnect().Coroutine();
+                        return;
+                    }
+
+                    PlayerComponent playerComponent = root.GetComponent<PlayerComponent>();
+                    Player player = playerComponent.GetByAccount(account);
+                    if (player == null)
+                    {
+                        player = playerComponent.AddChildWithId<Player, string>(request.RoleId, account);
+                        player.UnitId = request.RoleId;
+
+                        //playerCompont管理player
+                        playerComponent.Add(player);
+
+                        //
+                        PlayerSessionComponent playerSessionComponent = player.AddComponent<PlayerSessionComponent>();
+                        //
+                        playerSessionComponent.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.GateSession);
+                        await playerSessionComponent.AddLocation(LocationType.GateSession);
+
+                        player.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.UnOrderedMessage);
+                        await player.AddLocation(LocationType.Player);
+
+                        session.AddComponent<SessionPlayerComponent>().Player = player;
+                        playerSessionComponent.Session = session;
+
+                        player.PlayerState = PlayerState.Gate;
+                    }
+                    else
+                    {
+                        //复用player实体 
+                        
+                        //顶号操作的时候会添加PlayerOfflineOutTimeComponent 这里复用player实体所以需要移除
+                        player.RemoveComponent<PlayerOfflineOutTimeComponent>();
+
+                        session.AddComponent<SessionPlayerComponent>().Player = player;
+                        player.GetComponent<PlayerSessionComponent>().Session = session;
+                    }
+
+                    response.PlayerId = player.Id;
+                }
+            }
+        }
+    }   
+}

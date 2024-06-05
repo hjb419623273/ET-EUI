@@ -7,7 +7,7 @@ namespace ET.Server
     {
         public static DBComponent GetZoneDB(this DBManagerComponent self, int zone)
         {
-            DBComponent dbComponent = self.GetChild<DBComponent>(zone);
+            DBComponent dbComponent = self.DBComponents[zone];
             if (dbComponent != null)
             {
                 return dbComponent;
@@ -19,7 +19,8 @@ namespace ET.Server
                 throw new Exception($"zone: {zone} not found mongo connect string");
             }
 
-            dbComponent = self.AddChildWithId<DBComponent, string, string>(zone, startZoneConfig.DBConnection, startZoneConfig.DBName);
+            dbComponent = self.AddChild<DBComponent, string, string, int>(startZoneConfig.DBConnection, startZoneConfig.DBName, zone);
+            self.DBComponents[zone] = dbComponent;
             return dbComponent;
         }
     }

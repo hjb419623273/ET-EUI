@@ -7,11 +7,31 @@ message Main2NetClient_Login // IRequest
 {
 	int32 RpcId = 1;
 	int32 OwnerFiberId = 2;
-	string Account = 3;		// 账号
-	string Password = 4; 	// 密码
+	string Account = 3;		
+	string Password = 4; 	
 }
 
 message NetClient2Main_Login // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+
+	int64 PlayerId = 4;
+	string Token = 5;
+}
+
+// ResponseType NetClient2Main_LoginGame
+message Main2NetClient_LoginGame // IRequest	
+{
+	int32 RpcId = 1;
+	string Account = 2;
+	int64 RealmKey = 3;
+	int64 RoleId = 4;
+	string GateAddress = 5;
+} 
+
+message NetClient2Main_LoginGame // IResponse
 {
 	int32 RpcId = 1;
 	int32 Error = 2;

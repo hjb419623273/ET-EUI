@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using ET.Server;
 
 namespace ET.Client
 {
@@ -24,27 +25,25 @@ namespace ET.Client
             
             IPEndPoint realmAddress = routerAddressComponent.GetRealmAddress(account);
 
-            R2C_Login r2CLogin;
-            using (Session session = await netComponent.CreateRouterSession(realmAddress, account, password))
+            R2C_LoginAccount r2CLogin;
+            //创建一个连接realm网关服务器session
+            Session session = await netComponent.CreateRouterSession(realmAddress, account, password);
+            C2R_LoginAccount c2RLogin = C2R_LoginAccount.Create();
+            c2RLogin.AccountName = account;
+            c2RLogin.Password = password;
+            r2CLogin = (R2C_LoginAccount)await session.Call(c2RLogin);     //发送登录消息 等待回复
+            
+            if (r2CLogin.Error == ErrorCode.ERR_Success)
             {
-                C2R_Login c2RLogin = C2R_Login.Create();
-                c2RLogin.Account = account;
-                c2RLogin.Password = password;
-                r2CLogin = (R2C_Login)await session.Call(c2RLogin);
+                root.AddComponent<SessionComponent>().Session = session;
+            }
+            else
+            {
+                session?.Dispose();
             }
 
-            // 创建一个gate Session,并且保存到SessionComponent中
-            Session gateSession = await netComponent.CreateRouterSession(NetworkHelper.ToIPEndPoint(r2CLogin.Address), account, password);
-            gateSession.AddComponent<ClientSessionErrorComponent>();
-            root.AddComponent<SessionComponent>().Session = gateSession;
-            C2G_LoginGate c2GLoginGate = C2G_LoginGate.Create();
-            c2GLoginGate.Key = r2CLogin.Key;
-            c2GLoginGate.GateId = r2CLogin.GateId;
-            G2C_LoginGate g2CLoginGate = (G2C_LoginGate)await gateSession.Call(c2GLoginGate);
-
-            Log.Debug("登陆gate成功!");
-
-            response.PlayerId = g2CLoginGate.PlayerId;
+            response.Token = r2CLogin.Token;
+            response.Error = r2CLogin.Error;
         }
     }
 }

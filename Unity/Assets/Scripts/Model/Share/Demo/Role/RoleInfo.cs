@@ -1,17 +1,18 @@
 ﻿namespace ET
 {
+    
     public enum RoleInfoState
     {
-        Normal = 0,     
-        Freeze,     //冻结章台
+        Normal = 0,
+        Freeze,
     }
     
-    [ChildOf(typeof(Session))]
-    public class RoleInfo : Entity, IAwake
+    [ChildOf]
+    public class RoleInfo : Entity,IAwake
     {
-        public string Name;         //角色名称
+        public string Name;
 
-        public int ServerId;        //
+        public int ServerId;
 
         public int State;
 

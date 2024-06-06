@@ -9,9 +9,11 @@
         {
 
         }
-
+        
+        
         public static void FromMessage(this ServerInfo self, ServerInfoProto serverInfoProto)
         {
+
             self.Status = serverInfoProto.Status;
             self.ServerName = serverInfoProto.ServerName;
         }
@@ -25,5 +27,6 @@
 
             return serverInfoProto;
         }
+        
     }
 }

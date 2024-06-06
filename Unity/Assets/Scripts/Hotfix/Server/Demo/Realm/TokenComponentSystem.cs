@@ -1,4 +1,6 @@
-﻿namespace ET.Server
+﻿using System;
+
+namespace ET.Server
 {
     [EntitySystemOf(typeof(TokenComponent))]
     [FriendOfAttribute(typeof(ET.Server.TokenComponent))]
@@ -18,7 +20,7 @@
 
         public static string Get(this TokenComponent self, string key)
         {
-            string value = string.Empty;
+            string value = String.Empty;
             self.TokenDictionary.TryGetValue(key, out value);
             return value;
         }
@@ -31,16 +33,17 @@
             }
         }
 
-        private static async ETTask TimeOutRemoveKey(this TokenComponent self, string key, string tokeyKey)
+        private static async ETTask TimeOutRemoveKey(this TokenComponent self, string key, string tokenKey)
         {
-            await self.Root().GetComponent<TimerComponent>().WaitAsync(600000);     //等待十分钟
-            
+            await self.Root().GetComponent<TimerComponent>().WaitAsync(600000);
+
             string onlineToken = self.Get(key);
-            //对比十分钟前令牌是否一致 十分钟失效
-            if (!string.IsNullOrEmpty(onlineToken) && onlineToken == tokeyKey)
+
+            if (!string.IsNullOrEmpty(onlineToken) && onlineToken == tokenKey)
             {
                 self.Remove(key);
             }
+
         }
     }
 }

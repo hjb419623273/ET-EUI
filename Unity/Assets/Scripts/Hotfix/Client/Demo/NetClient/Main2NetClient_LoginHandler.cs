@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using ET.Server;
 
 namespace ET.Client
 {
@@ -10,7 +9,7 @@ namespace ET.Client
     {
         protected override async ETTask Run(Scene root, Main2NetClient_Login request, NetClient2Main_Login response)
         {
-            string account = request.Account;
+            string account  = request.Account;
             string password = request.Password;
             // 创建一个ETModel层的Session
             root.RemoveComponent<RouterAddressComponent>();
@@ -26,12 +25,13 @@ namespace ET.Client
             IPEndPoint realmAddress = routerAddressComponent.GetRealmAddress(account);
 
             R2C_LoginAccount r2CLogin;
-            //创建一个连接realm网关服务器session
+
             Session session = await netComponent.CreateRouterSession(realmAddress, account, password);
+            
             C2R_LoginAccount c2RLogin = C2R_LoginAccount.Create();
             c2RLogin.AccountName = account;
-            c2RLogin.Password = password;
-            r2CLogin = (R2C_LoginAccount)await session.Call(c2RLogin);     //发送登录消息 等待回复
+            c2RLogin.Password    = password;
+            r2CLogin = (R2C_LoginAccount)await session.Call(c2RLogin);
             
             if (r2CLogin.Error == ErrorCode.ERR_Success)
             {
@@ -44,6 +44,7 @@ namespace ET.Client
 
             response.Token = r2CLogin.Token;
             response.Error = r2CLogin.Error;
+            
         }
     }
 }

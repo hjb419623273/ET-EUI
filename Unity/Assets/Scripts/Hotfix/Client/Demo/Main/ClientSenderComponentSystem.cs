@@ -38,30 +38,28 @@ namespace ET.Client
 
         public static async ETTask<NetClient2Main_Login> LoginAsync(this ClientSenderComponent self, string account, string password)
         {
-            self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");    //创建一个新纤程
-            self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);        //
+            self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
+            self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
 
             Main2NetClient_Login main2NetClientLogin = Main2NetClient_Login.Create();
             main2NetClientLogin.OwnerFiberId = self.Fiber().Id;
-            main2NetClientLogin.Account = account;
-            main2NetClientLogin.Password = password;
-            NetClient2Main_Login response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, main2NetClientLogin) as NetClient2Main_Login;  //ProcessInnerSender 纤程之间通讯调用
-            return response;
-        }
-
-        public static async ETTask<NetClient2Main_LoginGame> LoginGameAsync(this ClientSenderComponent self, string account, long key, long roleId, string address)
-        {
-            Main2NetClient_LoginGame main2NetClientLoginGame = Main2NetClient_LoginGame.Create();
-            main2NetClientLoginGame.RealmKey = key;
-            main2NetClientLoginGame.Account = account;
-            main2NetClientLoginGame.RoleId = roleId;
-            main2NetClientLoginGame.GateAddress = address;
-            
-            //main纤程发送到netclient纤程中
-            NetClient2Main_LoginGame response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, main2NetClientLoginGame) as NetClient2Main_LoginGame;
+            main2NetClientLogin.Account      = account;
+            main2NetClientLogin.Password     = password;
+            NetClient2Main_Login response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, main2NetClientLogin) as NetClient2Main_Login;
             return response;
         }
         
+        public static async ETTask<NetClient2Main_LoginGame> LoginGameAsync(this ClientSenderComponent self, string account, long key,long roleId,string address)
+        {
+            Main2NetClient_LoginGame main2NetClientLoginGame = Main2NetClient_LoginGame.Create();
+            main2NetClientLoginGame.RealmKey    = key;
+            main2NetClientLoginGame.Account     = account;
+            main2NetClientLoginGame.RoleId      = roleId;
+            main2NetClientLoginGame.GateAddress = address;
+            NetClient2Main_LoginGame response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, main2NetClientLoginGame) as NetClient2Main_LoginGame;
+            return response;
+        }
+
         public static void Send(this ClientSenderComponent self, IMessage message)
         {
             A2NetClient_Message a2NetClientMessage = A2NetClient_Message.Create();
@@ -87,6 +85,5 @@ namespace ET.Client
             }
             return response;
         }
-
     }
 }

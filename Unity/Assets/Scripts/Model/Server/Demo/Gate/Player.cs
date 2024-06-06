@@ -2,20 +2,19 @@
 {
     public enum PlayerState
     {
-        Disconnect,     //断开连接
-        Gate,           //Gata网关 还没被传送到map
-        Game            //map服务器中
+        Disconnect,
+        Gate,
+        Game,
     }
+    
     
     [ChildOf(typeof(PlayerComponent))]
     public sealed class Player : Entity, IAwake<string>
     {
         public string Account { get; set; }
+
+        public PlayerState PlayerState { get; set; }
         
-        //play状态
-        public PlayerState PlayerState { get; set; }    
-        
-        //游戏角色Id
         public long UnitId { get; set; }
     }
 }

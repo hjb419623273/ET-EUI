@@ -2,14 +2,14 @@
 {
     public enum ServerStatus
     {
-        Normal = 0,     //正常
-        Stop = 1,       //停服维护
+        Normal = 0,
+        Stop   = 1,
     }
-    
+
     [ChildOf]
-    public class ServerInfo : Entity, IAwake
+    public class ServerInfo : Entity,IAwake
     {
-        public int Status;          //服务器状态
+        public int Status;
         public string ServerName;
     }
 }

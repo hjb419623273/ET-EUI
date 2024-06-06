@@ -1175,7 +1175,6 @@ namespace ET
         }
     }
 
-    // --------------------玩家缓存相关--------------------
     public static class InnerMessage
     {
         public const ushort ObjectQueryRequest = 20002;

@@ -11,5 +11,5 @@
 [303, {"_t":"StartSceneConfig","_id":303,"Process":1,"Zone":3,"SceneType":"Router","Name":"Router03","Port":30303}],
 [304, {"_t":"StartSceneConfig","_id":304,"Process":1,"Zone":3,"SceneType":"Router","Name":"Router04","Port":30304}],
 [401, {"_t":"StartSceneConfig","_id":401,"Process":1,"Zone":1000,"SceneType":"LoginCenter","Name":"LoginCenter","Port":0}],
-[402, {"_t":"StartSceneConfig","_id":402,"Process":1,"Zone":1000,"SceneType":"Realm","Name":"Realm","Port":30302}],
+[402, {"_t":"StartSceneConfig","_id":402,"Process":1,"Zone":1000,"SceneType":"Realm","Name":"Realm","Port":30002}],
 ]}

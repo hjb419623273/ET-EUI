@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
+﻿
 
 namespace ET.Server
 {
@@ -20,6 +20,7 @@ namespace ET.Server
             if (token == null || token != request.Token)
             {
                 response.Error = ErrorCode.ERR_TokenError;
+
                 session?.Disconnect().Coroutine();
                 return;
             }
@@ -31,15 +32,16 @@ namespace ET.Server
             }
 
             CoroutineLockComponent coroutineLockComponent = session.Root().GetComponent<CoroutineLockComponent>();
-
+            
             using (session.AddComponent<SessionLockingComponent>())
             {
                 using (await coroutineLockComponent.Wait(CoroutineLockType.CreateRole, request.Account.GetLongHashCode()))
                 {
+
                     DBComponent dbComponent = session.Root().GetComponent<DBManagerComponent>().GetZoneDB(session.Zone());
                     
-                    //查询是否重名
                     var roleInfos = await dbComponent.Query<RoleInfo>(d => d.Name == request.Name && d.ServerId == request.ServerId);
+
                     if (roleInfos != null && roleInfos.Count > 0)
                     {
                         response.Error = ErrorCode.ERR_RoleNameSame;
@@ -47,20 +49,21 @@ namespace ET.Server
                     }
 
                     RoleInfo newRoleInfo = session.AddChild<RoleInfo>();
-                    newRoleInfo.Name = request.Name;
-                    newRoleInfo.State = (int)RoleInfoState.Normal;
+                    newRoleInfo.Name     = request.Name;
+                    newRoleInfo.State    = (int)RoleInfoState.Normal;
                     newRoleInfo.ServerId = request.ServerId;
-                    newRoleInfo.Account = request.Account;
-                    newRoleInfo.CreateTime = TimeInfo.Instance.ServerNow();
+                    newRoleInfo.Account  = request.Account;
+                    newRoleInfo.CreateTime    = TimeInfo.Instance.ServerNow();
                     newRoleInfo.LastLoginTime = 0;
 
                     await dbComponent.Save<RoleInfo>(newRoleInfo);
 
                     response.RoleInfo = newRoleInfo.ToMessage();
-                     
+                    
                     newRoleInfo?.Dispose();
                 }
             }
+
         }
     }
 }

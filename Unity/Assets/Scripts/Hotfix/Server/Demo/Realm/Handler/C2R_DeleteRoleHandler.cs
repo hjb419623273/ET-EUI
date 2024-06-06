@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace ET.Server
- {
-    [MessageSessionHandler(SceneType.Realm)]
+﻿namespace ET.Server
+{
     [FriendOfAttribute(typeof(ET.RoleInfo))]
+    [MessageSessionHandler(SceneType.Realm)]
     public class C2R_DeleteRoleHandler : MessageSessionHandler<C2R_DeleteRole, R2C_DeleteRole>
     {
         protected override async ETTask Run(Session session, C2R_DeleteRole request, R2C_DeleteRole response)
@@ -20,9 +18,11 @@ namespace ET.Server
             if (token == null || token != request.Token)
             {
                 response.Error = ErrorCode.ERR_TokenError;
+
                 session?.Disconnect().Coroutine();
                 return;
             }
+
 
             CoroutineLockComponent coroutineLockComponent = session.Root().GetComponent<CoroutineLockComponent>();
 
@@ -30,10 +30,11 @@ namespace ET.Server
             {
                 using (await coroutineLockComponent.Wait(CoroutineLockType.CreateRole, request.Account.GetLongHashCode()))
                 {
-                    DBComponent dbComponent = session.Root().GetComponent<DBManagerComponent>().GetZoneDB(session.Zone());
-                    
-                    List<RoleInfo> roleInfos = await dbComponent.Query<RoleInfo>(d => d.Id == request.RoleInfoId && d.ServerId == request.ServerId);
 
+                    DBComponent dbComponent = session.Root().GetComponent<DBManagerComponent>().GetZoneDB(session.Zone());
+
+                    var roleInfos = await dbComponent.Query<RoleInfo>(d => d.Id == request.RoleInfoId && d.ServerId == request.ServerId);
+                    
                     if (roleInfos == null || roleInfos.Count <= 0)
                     {
                         response.Error = ErrorCode.ERR_RoleNotExist;
@@ -41,14 +42,16 @@ namespace ET.Server
                     }
 
                     var roleInfo = roleInfos[0];
-                    session.AddChild(roleInfo);     //这里实体创建出来必须添加到实体树中
+                    session.AddChild(roleInfo);
 
-                    roleInfo.State = (int)RoleInfoState.Freeze;     //冻结状态   防止用户找回账号数据
+                    roleInfo.State = (int)RoleInfoState.Freeze;
+
                     await dbComponent.Save(roleInfo);
                     response.DeletedRoleInfoId = roleInfo.Id;
-                    roleInfo.Dispose();                 //手动释放
+                    roleInfo?.Dispose();
                 }
             }
+
         }
     }
 }

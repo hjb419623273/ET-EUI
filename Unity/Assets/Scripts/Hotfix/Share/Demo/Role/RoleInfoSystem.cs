@@ -30,6 +30,7 @@
             roleInfoProto.CreateTime = self.CreateTime;
             roleInfoProto.ServerId = self.ServerId;
             roleInfoProto.LastLoginTime = self.LastLoginTime;
+
             return roleInfoProto;
         }
     }

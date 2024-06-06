@@ -24,7 +24,8 @@ namespace ET
         
         public StartSceneConfig Benchmark;
 
-        public StartSceneConfig LoginCenterConfig;      //起服配置
+
+        public StartSceneConfig LoginCenterConfig;
         
         public List<StartSceneConfig> GetByProcess(int process)
         {
@@ -103,7 +104,7 @@ namespace ET
 
         // 内网地址外网端口，通过防火墙映射端口过来
         private IPEndPoint innerIPPort;
-                        
+
         public IPEndPoint InnerIPPort
         {
             get

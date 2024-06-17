@@ -9,34 +9,36 @@ namespace ET.Client
 	[FriendOf(typeof(DlgLogin))]
 	public static  class DlgLoginSystem
 	{
-
 		public static void RegisterUIEvent(this DlgLogin self)
 		{
-			self.View.ELoginButton.AddListener(self.OnLogin);
-			self.View.ELoopTestLoopHorizontalScrollRect.AddItemRefreshListener(self.OnLoop);
+			self.View.E_LoginBtnButton.AddListener(() =>
+			{
+				self.View.E_LoginBtnButton.AddListener(() =>
+				{
+					self.LoginBtnEvent().Coroutine();
+				});
+			});
 		}
 
 		public static void ShowWindow(this DlgLogin self, Entity contextData = null)
 		{
-			self.AddUIScrollItems(ref self.Dictionary,100);
-			self.View.ELoopTestLoopHorizontalScrollRect.SetVisible(true,100);
-			self.View.ESReuseUI.Test();
+			self.View.E_AccountInputField.text = PlayerPrefs.GetString("userName");
+			self.View.E_PasswordInputField.text = PlayerPrefs.GetString("passWord");
 		}
-
-		public static void OnLoop(this DlgLogin self, Transform transform, int index)
+		
+		static async ETTask LoginBtnEvent(this DlgLogin self)
 		{
-			Scroll_Item_test test = self.Dictionary[index].BindTrans(transform);
-			test.ELabel_ContentText.text = index.ToString();
+			string account = self.View.E_AccountInputField.text.Trim();
+			string password = self.View.E_PasswordInputField.text.Trim();
+			
+			PlayerPrefs.SetString("userName", account);
+			PlayerPrefs.SetString("passWord", password);
+			
+			Log.Info(">>>>>>>>> Login click");
+			await LoginHelper.Login(self.Root(), account, password);
+			
+			self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Server);
+			self.Root().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
 		}
-
-		public static void OnLogin(this DlgLogin self)
-		{
-			LoginHelper.Login(
-				self.Root(), 
-				self.View.EAccountInputField.text, 
-				self.View.EPasswordInputField.text).Coroutine();
-		}
-		 
-
 	}
 }

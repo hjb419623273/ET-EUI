@@ -45,5 +45,28 @@ namespace ET.Server
         {
             return self.GetComponent<AOIEntity>().GetBeSeePlayers();
         }
+        
+        public static async ETTask<(bool, Unit)> LoadUnit(Player player)
+        {
+            GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
+            gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
+            Log.Warning(">>>>>>> player.UnitId" + player.UnitId);
+            Unit unit = await UnitCacheHelper.GetUnitCache(gateMapComponent.Scene, player.UnitId);
+
+            bool isNewUnit = unit == null;
+            //如果没找到该实体 创建一个新的
+            if (isNewUnit)
+            {
+                unit =  UnitFactory.Create(gateMapComponent.Scene, player.UnitId, UnitType.Player);
+                UnitCacheHelper.AddOrUpdateUnitAllCache(unit);
+            }
+
+            return (isNewUnit, unit);
+        }
+
+        public static async ETTask InitUnit(Unit unit, bool isNew)
+        {
+            await ETTask.CompletedTask;
+        }
     }
 }

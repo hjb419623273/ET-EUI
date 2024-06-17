@@ -19,15 +19,9 @@ namespace ET
         [MemoryPackOrder(1)]
         public int OwnerFiberId { get; set; }
 
-        /// <summary>
-        /// 账号
-        /// </summary>
         [MemoryPackOrder(2)]
         public string Account { get; set; }
 
-        /// <summary>
-        /// 密码
-        /// </summary>
         [MemoryPackOrder(3)]
         public string Password { get; set; }
 

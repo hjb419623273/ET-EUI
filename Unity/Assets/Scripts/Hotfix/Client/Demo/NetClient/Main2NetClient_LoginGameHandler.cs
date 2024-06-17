@@ -31,7 +31,7 @@ namespace ET.Client
              }
              Log.Debug("登陆gate成功!");
              
-             G2C_EnterGame g2CEnterGame = (G2C_EnterGame)await gateSession.Call(C2G_EnterGame.Create());
+             G2C_EnterGame g2CEnterGame = (G2C_EnterGame)await gateSession.Call( C2G_EnterGame.Create());
              if (g2CEnterGame.Error != ErrorCode.ERR_Success)
              {
                  response.Error = g2CEnterGame.Error;

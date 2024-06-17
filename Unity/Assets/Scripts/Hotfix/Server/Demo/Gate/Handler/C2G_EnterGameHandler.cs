@@ -78,16 +78,23 @@ namespace ET.Server
 					{
 						
 						// 在Gate上动态创建一个Map Scene，把Unit从DB中加载放进来，然后传送到真正的Map中，这样登陆跟传送的逻辑就完全一样了
-						GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
-						gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
+						// GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
+						// gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
 
-						Scene scene = gateMapComponent.Scene;
+						// Scene scene = gateMapComponent.Scene;
 			
 						// 这里可以从DB中加载Unit
-						Unit unit = UnitFactory.Create(scene, player.Id, UnitType.Player);
+						// Unit unit = UnitFactory.Create(scene, player.Id, UnitType.Player);
+						// long unitId = unit.Id;
+						
+						// 从数据库或者缓存中加载出unit实体相关组件
+						(bool isNewPlayer, Unit unit) = await UnitHelper.LoadUnit(player);
+						
+						//玩家unit上线后的初始化操作（针对业务逻辑）
+						await UnitHelper.InitUnit(unit, isNewPlayer);
 						long unitId = unit.Id;
 						
-						StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "Map1");
+						StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "Game");
 						
 						// 等到一帧的最后面再传送，先让G2C_EnterMap返回，否则传送消息可能比G2C_EnterMap还早
 						TransferHelper.TransferAtFrameFinish(unit, startSceneConfig.ActorId, startSceneConfig.Name).Coroutine();

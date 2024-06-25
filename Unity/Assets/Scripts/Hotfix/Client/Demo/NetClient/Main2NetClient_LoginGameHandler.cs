@@ -16,6 +16,7 @@ namespace ET.Client
              gateSession.AddComponent<ClientSessionErrorComponent>();
              root.GetComponent<SessionComponent>().Session = gateSession;
              
+             //登录进Gate网关服务器的消息 这里后面重点研究下
              C2G_LoginGameGate c2GLoginGameGate = C2G_LoginGameGate.Create();
              c2GLoginGameGate.Key = request.RealmKey;
              c2GLoginGameGate.AccountName = request.Account;

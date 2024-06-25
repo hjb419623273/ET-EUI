@@ -13,10 +13,7 @@ namespace ET.Client
 		{
 			self.View.E_LoginBtnButton.AddListener(() =>
 			{
-				self.View.E_LoginBtnButton.AddListener(() =>
-				{
-					self.LoginBtnEvent().Coroutine();
-				});
+				self.LoginBtnEvent().Coroutine();
 			});
 		}
 
@@ -35,7 +32,17 @@ namespace ET.Client
 			PlayerPrefs.SetString("passWord", password);
 			
 			Log.Info(">>>>>>>>> Login click");
-			await LoginHelper.Login(self.Root(), account, password);
+			int errorCode = await LoginHelper.Login(self.Root(), account, password);
+			if (errorCode != ErrorCode.ERR_Success)
+			{
+				Log.Error(errorCode.ToString());
+			}
+
+			errorCode = await LoginHelper.GetServerInfos(self.Root());
+			if (errorCode != ErrorCode.ERR_Success)
+			{
+				Log.Error(errorCode.ToString());
+			}
 			
 			self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Server);
 			self.Root().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);

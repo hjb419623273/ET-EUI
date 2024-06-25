@@ -15,6 +15,7 @@ namespace ET.Server
             root.AddComponent<MessageSender>();
    
 
+            //记录角色账号登录信息
             root.AddComponent<LoginInfoRecordComponent>();
 
             

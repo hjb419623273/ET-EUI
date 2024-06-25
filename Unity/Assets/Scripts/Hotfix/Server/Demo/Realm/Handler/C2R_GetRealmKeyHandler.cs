@@ -32,11 +32,12 @@ namespace ET.Server
             {
                 using (await coroutineLockComponent.Wait(CoroutineLockType.LoginAccount, request.Account.GetLongHashCode()))
                 {
-                    // 随机分配一个Gate
+                    // 随机分配一个Gate 根据所选服务器和账户名随机分配
                     StartSceneConfig config = RealmGateAddressHelper.GetGate(request.ServerId, request.Account);
                     Log.Debug($"gate address: {config}");
 
                     // 向gate请求一个key,客户端可以拿着这个key连接gate
+                    // R2G_GetLoginKey Realm发往gate请求连接令牌
                     R2G_GetLoginKey r2GGetLoginKey = R2G_GetLoginKey.Create();
                     r2GGetLoginKey.Account = request.Account;
                     G2R_GetLoginKey g2RGetLoginKey =
@@ -45,7 +46,8 @@ namespace ET.Server
                     response.Address = config.InnerIPPort.ToString();
                     response.Key = g2RGetLoginKey.Key;
                     response.GateId = g2RGetLoginKey.GateId;
-
+                    
+                    //游戏客户端和Realm服务器断开连接
                     session.Disconnect().Coroutine();
                 }
             }

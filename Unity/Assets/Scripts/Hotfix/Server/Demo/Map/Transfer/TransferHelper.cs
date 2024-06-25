@@ -32,6 +32,8 @@ namespace ET.Server
             }
             unit.Dispose();
             
+            //这里加锁逻辑需要研究下
+            //1.
             await root.GetComponent<LocationProxyComponent>().Lock(LocationType.Unit, unitId, request.OldActorId);
             await root.GetComponent<MessageSender>().Call(sceneInstanceId, request);
         }

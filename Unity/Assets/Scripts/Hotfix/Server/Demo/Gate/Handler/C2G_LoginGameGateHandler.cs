@@ -40,7 +40,7 @@ namespace ET.Server
                     return;
                 }
 
-                //通知登录中心服 记录本次登录的服务器Zone
+                //通知登录中心服 记录本次登录的服务器Zone(区服 )
                 G2L_AddLoginRecord g2LAddLoginRecord = G2L_AddLoginRecord.Create();
 
                 g2LAddLoginRecord.AccountName = request.AccountName;
@@ -60,8 +60,10 @@ namespace ET.Server
                 Player player = playerComponent.GetByAccount(account);
                 if (player == null)
                 {
+                    //为空说明player实体在gate网关服务器上未被创建出来
                     player = playerComponent.AddChildWithId<Player, string>(request.RoleId,account);
                     player.UnitId = request.RoleId;
+                    //player.UnitId = IdGenerater.Instance.GenerateUnitId(root.Zone());
                     
                     playerComponent.Add(player);
                     PlayerSessionComponent playerSessionComponent = player.AddComponent<PlayerSessionComponent>();

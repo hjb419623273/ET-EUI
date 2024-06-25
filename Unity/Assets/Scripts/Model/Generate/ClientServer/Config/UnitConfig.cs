@@ -71,6 +71,12 @@ namespace ET
 		public int Height { get; set; }
 		/// <summary>体重</summary>
 		public int Weight { get; set; }
+		/// <summary>最大生命值</summary>
+		public int MaxHP { get; set; }
+		/// <summary>攻击伤害值</summary>
+		public int DamageValue { get; set; }
+		/// <summary>预设物名</summary>
+		public string PrefabName { get; set; }
 
 	}
 }

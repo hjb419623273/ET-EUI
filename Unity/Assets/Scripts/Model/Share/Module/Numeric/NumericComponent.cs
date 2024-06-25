@@ -9,7 +9,7 @@ namespace ET
     {
         public static float GetAsFloat(this NumericComponent self, int numericType)
         {
-            return (float)self.GetByKey(numericType) / 10000;
+            return (float)self.GetByKey(numericType) / 10000;       //注意 浮点数数值一般需要配置万分比数值 不要直接用小数 保证浮点精确度
         }
 
         public static int GetAsInt(this NumericComponent self, int numericType)

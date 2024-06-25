@@ -18,7 +18,7 @@ namespace ET.Server
             message.EntityBytes = new List<byte[]>();
             message.EntityTypes.Add(typeof(T).FullName);
             message.EntityBytes.Add(MongoHelper.Serialize(self));
-            await self.Root().GetComponent<MessageSender>().Call(StartSceneConfigCategory.Instance.GetUnitCacheConfig(self.Id).ActorId, message);
+            await self.Root().GetComponent<MessageSender>().Call(StartSceneConfigCategory.Instance.GetUnitCacheConfig(self.Zone()).ActorId, message);
         }
         /// <summary>
         /// 获取玩家缓存
@@ -28,9 +28,11 @@ namespace ET.Server
         /// <returns></returns>
         public static async ETTask<Unit> GetUnitCache(Scene scene, long unitId)
         {
+            Scene root = scene.Root();
+            StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetUnitCacheConfig(scene.Zone());
             Other2UnitCache_GetUnit message = Other2UnitCache_GetUnit.Create();
             message.UnitId = unitId;
-            UnitCache2Other_GetUnit queryUnit = (UnitCache2Other_GetUnit) await scene.Root().GetComponent<MessageSender>().Call(StartSceneConfigCategory.Instance.GetUnitCacheConfig(unitId).ActorId,message);
+            UnitCache2Other_GetUnit queryUnit = (UnitCache2Other_GetUnit)await root.GetComponent<MessageSender>().Call(startSceneConfig.ActorId, message);
             if (queryUnit.Error != ErrorCode.ERR_Success ||  queryUnit.EntityList == null || queryUnit.EntityList.Count <= 0)
             {
                 return null;
@@ -68,11 +70,14 @@ namespace ET.Server
         public static async ETTask<T> GetUnitComponentCache<T>(Scene scene, long unitId) where T : Entity, IUnitCache
         {
             Scene root = scene.Root();
+            StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetUnitCacheConfig(scene.Zone());
+
             Other2UnitCache_GetUnit message = Other2UnitCache_GetUnit.Create();
             message.UnitId = unitId;
             message.ComponentNameList = new List<string>();
             message.ComponentNameList.Add(typeof (T).Name);
-            ActorId actorId = StartSceneConfigCategory.Instance.GetUnitCacheConfig(unitId).ActorId;
+            
+            ActorId actorId = startSceneConfig.ActorId;
             UnitCache2Other_GetUnit queryUnit = (UnitCache2Other_GetUnit)await root.GetComponent<MessageSender>().Call(actorId, message);
             if (queryUnit.Error == ErrorCode.ERR_Success && queryUnit.EntityList !=null && queryUnit.EntityList.Count > 0)
             {
@@ -117,7 +122,10 @@ namespace ET.Server
                 message.EntityTypes.Add(entity.GetType().FullName);
                 message.EntityBytes.Add(MongoHelper.Serialize(entity));
             }
-            unit.Root().GetComponent<MessageSender>().Call(StartSceneConfigCategory.Instance.GetUnitCacheConfig(unit.Id).ActorId, message).Coroutine();
+            // unit.Root().GetComponent<MessageSender>().Call(StartSceneConfigCategory.Instance.GetUnitCacheConfig(unit.Id).ActorId, message).Coroutine();
+            Scene root = unit.Root();
+            StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetUnitCacheConfig(unit.Zone());
+            root.GetComponent<MessageSender>().Call(startSceneConfig.ActorId, message).Coroutine();
         }
     }
 }

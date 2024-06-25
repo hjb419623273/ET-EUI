@@ -12,6 +12,7 @@
                 PlayerComponent playerComponent = scene.GetComponent<PlayerComponent>();
                 Player player = playerComponent.GetByAccount(request.AccountName);
 
+                //玩家还未登录进网关 未在线状态
                 if (player == null)
                 {
                     return;
@@ -22,6 +23,7 @@
                 Session gateSession = player.GetComponent<PlayerSessionComponent>()?.Session;
                 if (gateSession != null && !gateSession.IsDisposed)
                 {
+                    //通知玩家断开连接  顶号操作
                     A2C_Disconnect a2CDisconnect = A2C_Disconnect.Create();
                     a2CDisconnect.Error = ErrorCode.ERR_OtherAccountLogin;
                     gateSession.Send(a2CDisconnect);

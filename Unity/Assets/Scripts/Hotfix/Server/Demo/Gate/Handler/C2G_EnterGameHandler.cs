@@ -14,6 +14,7 @@ namespace ET.Server
 			}
 			
 			SessionPlayerComponent sessionPlayerComponent = session.GetComponent<SessionPlayerComponent>();
+			//游戏客户端并未连接到gate网关
 			if (null == sessionPlayerComponent)
 			{
 				response.Error = ErrorCode.ERR_SessionPlayerError;
@@ -21,7 +22,7 @@ namespace ET.Server
 			}
 			
 			Player player = sessionPlayerComponent.Player;
-
+			
 			if (player == null || player.IsDisposed)
 			{
 				response.Error = ErrorCode.ERR_NonePlayerError;
@@ -36,7 +37,7 @@ namespace ET.Server
 			{
 				using (await coroutineLockComponent.Wait(CoroutineLockType.LoginGate, player.Account.GetLongHashCode()))
 				{
-					
+					//等待过程中seesion可能已经被释放掉 或者 player实体被释放掉
 					if (instanceId != session.InstanceId || player.IsDisposed)
 					{
 						response.Error = ErrorCode.ERR_PlayerSessionError;
@@ -94,7 +95,8 @@ namespace ET.Server
 						await UnitHelper.InitUnit(unit, isNewPlayer);
 						long unitId = unit.Id;
 						
-						StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "Game");
+						//map1 map2等 是为了分摊服务器压力？ 类似魔兽世界？
+						StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "Map1");
 						
 						// 等到一帧的最后面再传送，先让G2C_EnterMap返回，否则传送消息可能比G2C_EnterMap还早
 						TransferHelper.TransferAtFrameFinish(unit, startSceneConfig.ActorId, startSceneConfig.Name).Coroutine();

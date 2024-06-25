@@ -18,6 +18,7 @@ namespace ET.Client
             
             Log.Info($"get router: {recvLocalConn} {routerAddress}");
 
+            //router地址和Realm网关负载均衡服务地址创建session
             Session routerSession = netComponent.Create(routerAddress, address, recvLocalConn);
             routerSession.AddComponent<PingComponent>();
             routerSession.AddComponent<RouterCheckComponent>();
@@ -25,6 +26,7 @@ namespace ET.Client
             return routerSession;
         }
         
+        //这里会随机分配一个Router服务器地址
         public static async ETTask<(uint, IPEndPoint)> GetRouterAddress(this NetComponent netComponent, IPEndPoint address, uint localConn, uint remoteConn)
         {
             Log.Info($"start get router address: {netComponent.Root().Id} {address} {localConn} {remoteConn}");

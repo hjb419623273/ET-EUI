@@ -36,11 +36,17 @@ namespace ET.Client
             self.Dispose();
         }
 
+        //这里需要研究下
+        //创建了一个新的纤程 NetClient
         public static async ETTask<NetClient2Main_Login> LoginAsync(this ClientSenderComponent self, string account, string password)
         {
             self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
+            //netclint纤程和当前客户端纤程在一个进程 所以 两个Process是一样的
+            //actorid是指向某个进程中的某个Fiber中的某个实体具体地址的一个id
             self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
-
+            
+            //ProcessInnerSender两个纤程之间通讯
+            //
             Main2NetClient_Login main2NetClientLogin = Main2NetClient_Login.Create();
             main2NetClientLogin.OwnerFiberId = self.Fiber().Id;
             main2NetClientLogin.Account      = account;

@@ -22,11 +22,23 @@
 	    public const int MaxHpFinalAdd = MaxHp * 10 + 4;
 	    public const int MaxHpFinalPct = MaxHp * 10 + 5;
 
-	    public const int AOI = 1003;
+	    public const int AOI = Level;
 	    public const int AOIBase = AOI * 10 + 1;
 	    public const int AOIAdd = AOI * 10 + 2;
 	    public const int AOIPct = AOI * 10 + 3;
 	    public const int AOIFinalAdd = AOI * 10 + 4;
 	    public const int AOIFinalPct = AOI * 10 + 5;
+
+	    public const int Level = 1004;
+	    
+	    public const int Coin = 1005;
+	    
+	    public const int Exp = 1006;
+
+	    public const int Position = 1007;
+
+	    public const int Height = 1008;
+
+	    public const int Weight = 1009;
     }
 }

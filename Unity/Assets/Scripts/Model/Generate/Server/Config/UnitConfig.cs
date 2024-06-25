@@ -69,6 +69,10 @@ namespace ET
 		public int Position { get; set; }
 		/// <summary>体重</summary>
 		public int Weight { get; set; }
+		/// <summary>最大生命值</summary>
+		public int MaxHP { get; set; }
+		/// <summary>攻击伤害值</summary>
+		public int DamageValue { get; set; }
 
 	}
 }

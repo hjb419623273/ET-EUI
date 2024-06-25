@@ -1,6 +1,7 @@
 {"dict": [
 [1, {"_t":"StartZoneConfig","_id":1,"DBConnection":"mongodb://127.0.0.1","ZoneType":1,"DBName":"ET1"}],
-[2, {"_t":"StartZoneConfig","_id":2,"DBConnection":"","ZoneType":0,"DBName":""}],
-[3, {"_t":"StartZoneConfig","_id":3,"DBConnection":"","ZoneType":0,"DBName":""}],
-[1000, {"_t":"StartZoneConfig","_id":1000,"DBConnection":"mongodb://127.0.0.1","ZoneType":0,"DBName":"ET1000"}],
+[2, {"_t":"StartZoneConfig","_id":2,"DBConnection":"mongodb://127.0.0.1","ZoneType":2,"DBName":"ET2"}],
+[3, {"_t":"StartZoneConfig","_id":3,"DBConnection":"","ZoneType":1001,"DBName":""}],
+[4, {"_t":"StartZoneConfig","_id":4,"DBConnection":"","ZoneType":1002,"DBName":""}],
+[1000, {"_t":"StartZoneConfig","_id":1000,"DBConnection":"mongodb://127.0.0.1","ZoneType":1003,"DBName":"ET1000"}],
 ]}

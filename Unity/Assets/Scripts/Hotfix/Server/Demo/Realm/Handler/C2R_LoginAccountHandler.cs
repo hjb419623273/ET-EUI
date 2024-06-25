@@ -98,8 +98,10 @@ namespace ET.Server
                         return;
                     }
 
+                    //前一个设备登录到Account的seesion
                     Session otherSession  = session.Root().GetComponent<AccountSessionsComponent>().Get(request.AccountName);
                    
+                    //通知前一个设备顶号登录
                     otherSession?.Send( A2C_Disconnect.Create());
                     otherSession?.Disconnect().Coroutine();
                     session.Root().GetComponent<AccountSessionsComponent>().Add(request.AccountName, session);

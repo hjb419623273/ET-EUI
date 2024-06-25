@@ -11,7 +11,8 @@ namespace ET.Client
             try
             {
                 Scene currentScene = root.CurrentScene();
-
+                currentScene.GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Loading);
+                
                 ResourcesLoaderComponent resourcesLoaderComponent = currentScene.GetComponent<ResourcesLoaderComponent>();
             
                 // 加载场景资源

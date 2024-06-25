@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ET.Server
 {
     [MessageHandler(SceneType.UnitCache)]
     [FriendOfAttribute(typeof(ET.Server.UnitCacheComponent))]
-    public class Other2UnitCache_GetUnitHandler : MessageHandler<Scene, Other2UnitCache_GetUnit, UnitCache2Other_GetUnit>
+   public class Other2UnitCache_GetUnitHandler : MessageHandler<Scene, Other2UnitCache_GetUnit, UnitCache2Other_GetUnit>
     {
         protected override async ETTask Run(Scene scene, Other2UnitCache_GetUnit request, UnitCache2Other_GetUnit response)
         {
@@ -14,12 +16,9 @@ namespace ET.Server
             {
                 if (request.ComponentNameList.Count == 0)
                 {
-                    string fullName = typeof(Unit).FullName;
-                    if (fullName != null)
-                    {
-                        dictionary.Add(fullName, null);
-                    }
-
+                    Type tttt = typeof (Unit);
+                    string nbaaa = tttt.FullName;
+                    dictionary.Add(nbaaa, null);
                     foreach (string s in unitCacheComponent.UnitCacheKeyList)
                     {
                         dictionary.Add(s, null);
@@ -33,21 +32,29 @@ namespace ET.Server
                     }
                 }
 
-                foreach (var key in dictionary.Keys)
+                List<string> entityKeys = dictionary.Keys.ToList();
+                foreach (var key in entityKeys)
                 {
                     Entity entity = await unitCacheComponent.Get(request.UnitId, key);
-                    dictionary[key] = entity;
+
+                    try
+                    {
+                        dictionary[key] = entity;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        Log.Debug(e.ToString());
+                        throw;
+                    }
                 }
                 
-                //一个集合的所有元素到指定集合的末尾
-                response.ComponentNameList = new List<string>();
                 response.ComponentNameList.AddRange(dictionary.Keys);
-                response.EntityList = new List<Entity>();
                 response.EntityList.AddRange(dictionary.Values);
             }
             finally
             {
-                dictionary.Clear(); ;
+                dictionary.Clear();
                 ObjectPool.Instance.Recycle(dictionary);
             }
 

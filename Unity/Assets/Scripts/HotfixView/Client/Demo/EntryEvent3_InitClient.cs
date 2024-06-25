@@ -17,6 +17,11 @@ namespace ET.Client
             root.AddComponent<ResourcesLoaderComponent>();
             root.AddComponent<PlayerComponent>();
             root.AddComponent<CurrentScenesComponent>();
+            
+            root.AddComponent<RecordAccountInfoComponect>();    //记录服务账号信息组件
+            root.AddComponent<ClientServerInfosComponent>();    //记录服务器信息组件
+            root.AddComponent<RoleInfosComponent>();            //记录角色信息 
+            
             await root.AddComponent<RedDotComponent>().PreLoadGameObject();
             
             // 根据配置修改掉Main Fiber的SceneType

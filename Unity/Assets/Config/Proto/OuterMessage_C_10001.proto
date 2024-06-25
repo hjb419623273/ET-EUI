@@ -405,3 +405,25 @@ message G2C_EnterGame // ISessionResponse
 
 	int64 MyUnitId = 4;
 }
+
+message M2C_NoticeUnitNumeric // IMessage
+{
+	int64 UnitId = 1;
+
+	int32 NumericType = 2;
+
+	int64 NewValue = 4;
+}
+
+//ResponseType M2C_TestUnitNumeric
+message C2M_TestUnitNumeric // ILocationRequest
+{
+	int32 RpcId = 1;
+}
+
+message M2C_TestUnitNumeric // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}

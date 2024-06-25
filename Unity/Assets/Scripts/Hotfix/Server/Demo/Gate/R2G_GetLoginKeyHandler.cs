@@ -3,6 +3,7 @@
 
 namespace ET.Server
 {
+	//Realm To Gate
 	[MessageHandler(SceneType.Gate)]
 	public class R2G_GetLoginKeyHandler : MessageHandler<Scene, R2G_GetLoginKey, G2R_GetLoginKey>
 	{

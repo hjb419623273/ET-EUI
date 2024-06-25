@@ -52,5 +52,7 @@ namespace ET
         public const int ERR_RoleNameSame = 200017;
 
         public const int ERR_RoleNotExist = 200018;
+
+        public const int ERR_NetWorkError = 2000019;
     }
 }

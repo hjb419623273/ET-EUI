@@ -37,20 +37,8 @@ namespace ET.Client
 
 		public static async ETTask OnRoleButtonClickHandler(this DlgMain self)
 		{
-			try
-			{
-				int error = await NumericHelper.TestUpdateNumeric(self.Root());
-				if (error != ErrorCode.ERR_Success)
-				{
-					return;
-				}
-				
-				Log.Debug("发送更新属性测试消息成功！");
-			}
-			catch (Exception e)
-			{
-				Log.Error(e.ToString());
-			}
+			self.Scene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_RoleInfo);
+			await ETTask.CompletedTask;
 		}
 	}
 }

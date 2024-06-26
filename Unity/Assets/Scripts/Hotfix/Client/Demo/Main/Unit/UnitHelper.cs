@@ -14,5 +14,15 @@
             PlayerComponent playerComponent = currentScene.Root().GetComponent<PlayerComponent>();
             return currentScene.GetComponent<UnitComponent>().Get(playerComponent.MyId);
         }
+        
+        public static NumericComponent GetMyUnitNumericComponent(Scene currentScene)
+        {
+            PlayerComponent playerComponent = currentScene?.Scene()?.GetComponent<PlayerComponent>();
+            if ( null == playerComponent )
+            {
+                return null;
+            }
+            return currentScene.GetComponent<UnitComponent>()?.Get(playerComponent.MyId)?.GetComponent<NumericComponent>();
+        }
     }
 }

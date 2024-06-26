@@ -27,5 +27,29 @@ namespace ET.Client
 
             return ErrorCode.ERR_Success;
         }
+
+        public static async ETTask<int> RequestAddAttributePoint(Scene scene, int numericType)
+        {
+            M2C_AddAttributePoint m2CAddAttributePoint = null;
+            try
+            {
+                C2M_AddAttributePoint c2MAddAttributePoint = C2M_AddAttributePoint.Create();
+                c2MAddAttributePoint.NumericType = numericType;
+                m2CAddAttributePoint = (M2C_AddAttributePoint) await scene.GetComponent<ClientSenderComponent>().Call(c2MAddAttributePoint);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                return ErrorCode.ERR_NetWorkError;
+            }
+
+            if (m2CAddAttributePoint.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error(m2CAddAttributePoint.Error.ToString());
+                return m2CAddAttributePoint.Error;
+            }
+            
+            return ErrorCode.ERR_Success;
+        }
     }
 }

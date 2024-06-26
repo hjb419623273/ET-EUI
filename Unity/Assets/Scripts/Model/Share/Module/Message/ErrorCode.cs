@@ -54,5 +54,11 @@ namespace ET
         public const int ERR_RoleNotExist = 200018;
 
         public const int ERR_NetWorkError = 2000019;
+        
+        public const int ERR_NumericTypeNotExist = 2000020;         //表中不存在该属性
+        
+        public const int ERR_NumericTypeNotAddPoint = 2000021;      //该属性不能用属性点添加
+        
+        public const int ERR_AddPointNotEnough = 2000022;
     }
 }

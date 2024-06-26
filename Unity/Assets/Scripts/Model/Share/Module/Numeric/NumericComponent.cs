@@ -49,9 +49,10 @@ namespace ET
             {
                 return;
             }
-
+            Log.Info($"Insert numericType : {numericType} value : {value}");
             self.NumericDic[numericType] = value;
 
+            //这里注意下 Max = 10000 只有大于Max的属性才会走update 
             if (numericType >= NumericType.Max)
             {
                 self.Update(numericType, isPublicEvent);
@@ -68,6 +69,7 @@ namespace ET
         public static long GetByKey(this NumericComponent self, int key)
         {
             long value = 0;
+            Log.Info($"GetByKey key : {key}");
             self.NumericDic.TryGetValue(key, out value);
             return value;
         }

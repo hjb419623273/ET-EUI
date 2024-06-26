@@ -427,3 +427,18 @@ message M2C_TestUnitNumeric // ILocationResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+
+//ResponseType M2C_AddAttributePoint
+message C2M_AddAttributePoint // ILocationRequest
+{
+	int32 RpcId = 1;
+	int32 NumericType = 2;
+}
+
+message M2C_AddAttributePoint // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+

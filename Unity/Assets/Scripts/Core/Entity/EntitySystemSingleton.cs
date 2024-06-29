@@ -118,6 +118,33 @@ namespace ET
             }
         }
         
+        // AddComponentSystem
+        public void AddComponent(Entity entity, Entity component)
+        {
+            List<SystemObject> iAddSystem = this.TypeSystems.GetSystems(entity.GetType(), typeof (IAddComponentSysSystem));
+            if (iAddSystem == null)
+            {
+                return;
+            }
+
+            foreach (IAddComponentSysSystem addSystem in iAddSystem)
+            {
+                if (addSystem == null)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    addSystem.Run(entity, component);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e);
+                }
+            }
+        }
+        
         public void Awake(Entity component)
         {
             List<SystemObject> iAwakeSystems = this.TypeSystems.GetSystems(component.GetType(), typeof (IAwakeSystem));

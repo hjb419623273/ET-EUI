@@ -8,6 +8,7 @@
             await ETTask.CompletedTask;
             
             //Unit角色下线业务逻辑，然后保存Unit及组件数据至数据库
+            unit.GetComponent<UnitDBSaveComponent>()?.SaveChange();
             
             //正式释放Unit
             RemoveUnit(unit).Coroutine();

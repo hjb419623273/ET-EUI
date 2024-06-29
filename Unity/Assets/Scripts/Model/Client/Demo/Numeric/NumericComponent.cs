@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
 
-namespace ET
+namespace ET.Client
 {
     [FriendOf(typeof (NumericComponent))]
     public static class NumericComponentSystem
@@ -90,22 +90,9 @@ namespace ET
             self.Insert(final, result, isPublicEvent);
         }
     }
-    
-    public struct NumbericChange
-    {
-        public Unit Unit;
-        public int NumericType;
-        public long Old;
-        public long New;
-    }
 
     [ComponentOf(typeof (Unit))]
-    
-#if DOTNET
-    public class NumericComponent: Entity, IAwake, ITransfer,IUnitCache
-#else
     public class NumericComponent: Entity, IAwake, ITransfer
-#endif
     {
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<int, long> NumericDic = new Dictionary<int, long>();

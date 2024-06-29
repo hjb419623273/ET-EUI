@@ -43,21 +43,22 @@
 
         public static async ETTask<Entity> Get(this UnitCache self, long unitId)
         {
-            EntityRef<Entity> entityRef = null;
-            Entity entityTmp = null;
-            if (!self.CacheCompoenntsDictionary.TryGetValue(unitId, out entityRef))
+            EntityRef<Entity> entity = null;
+            if (!self.CacheCompoenntsDictionary.TryGetValue(unitId, out entity))
             {
-                Log.Warning(">>>>>>>>>>>get entity key:" + self.key);
-                entityTmp = await self.Root().GetComponent<DBManagerComponent>().GetZoneDB(self.Zone()).Query<Entity>(unitId, self.key);
-                if (entityTmp != null)
-                {
-                    self.AddOrUpdate(entityTmp);
-                }
-            }
+                Log.Warning(">>>>>>>>get entity key:" + self.key);
+                Entity ent = entity;
+                ent = await self.Root().GetComponent<DBManagerComponent>().GetZoneDB(self.Zone()).Query<Entity>(unitId, self.key);
 
-            entityTmp = entityRef;
-            return entityTmp;
+                if (ent != null)
+                {
+                    self.AddOrUpdate(ent);
+                }
+                return ent;
+            }
+            return null;
         }
+        
         
         public static void Delete(this UnitCache self, long id)
         {

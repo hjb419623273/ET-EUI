@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using ET.Client;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using TrueSync;
@@ -39,7 +40,7 @@ namespace ET
             RegisterStruct<TSVector4>();
             RegisterStruct<TSQuaternion>();
             RegisterStruct<LSInput>();
-
+            Type type1 = typeof (ET.Client.NumericComponent);
             Dictionary<string, Type> types = CodeTypes.Instance.GetTypes();
             foreach (Type type in types.Values)
             {
@@ -52,9 +53,16 @@ namespace ET
                 {
                     continue;
                 }
-
+                
+                if (type.FullName.Equals("ET.Client.NumericComponent"))
+                {
+                    continue;
+                }
+                
                 BsonClassMap.LookupClassMap(type);
             }
+
+            int a = 1;
         }
     }
 }

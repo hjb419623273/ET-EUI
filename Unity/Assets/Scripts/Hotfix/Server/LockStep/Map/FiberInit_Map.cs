@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using TrueSync;
 
 namespace ET.Server
 {
@@ -18,7 +19,7 @@ namespace ET.Server
             root.AddComponent<RoomManagerComponent>();
             root.AddComponent<LocationProxyComponent>();
             root.AddComponent<MessageLocationSenderComponent>();
-
+            
             await ETTask.CompletedTask;
         }
     }

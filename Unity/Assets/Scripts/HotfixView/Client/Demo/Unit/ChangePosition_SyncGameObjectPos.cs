@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace ET.Client
 {
@@ -16,6 +17,16 @@ namespace ET.Client
 
             Transform transform = gameObjectComponent.Transform;
             transform.position = unit.Position;
+
+            
+            //根据y轴坐标进行一个排序
+            SortingGroup sortingGroup = transform.GetComponent<SortingGroup>();
+            if (sortingGroup == null)
+            {
+                return;
+            }
+
+            sortingGroup.sortingOrder = (int)-args.Unit.Position.y;
             await ETTask.CompletedTask;
         }
     }

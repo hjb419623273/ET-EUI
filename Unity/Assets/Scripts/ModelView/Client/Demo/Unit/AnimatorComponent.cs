@@ -8,6 +8,10 @@ namespace ET.Client
 		None,
 		Idle,
 		Run,
+		Attack,
+		Hurt,
+		Die,
+		Win
 	}
 
 	[ComponentOf]

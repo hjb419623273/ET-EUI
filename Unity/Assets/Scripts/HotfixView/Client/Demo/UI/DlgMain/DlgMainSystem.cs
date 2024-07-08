@@ -16,11 +16,25 @@ namespace ET.Client
 			{
 				return self.OnRoleButtonClickHandler();
 			});
+			
+			self.View.E_TaskButtonButton.AddListenerAsync(() =>
+			{
+				return self.OnTaskButtonClickHandler();
+			});
+			
+			//红点显示
+			RedDotHelper.AddRedDotNodeView(self.Root(), "Role",self.View.E_RoleInfoButtonButton.gameObject, Vector3.one, new Vector2(75, 55));
 		}
 
 		public static void ShowWindow(this DlgMain self, Entity contextData = null)
 		{
 			self.Refresh().Coroutine();
+		}
+
+		public static void OnUnLoadWindow(this DlgMain self)
+		{
+			RedDotMonoView redDotMonoView = self.View.E_RoleInfoButtonButton.GetComponent<RedDotMonoView>();
+			RedDotHelper.RemoveRedDotView(self.Root(), "Role", out redDotMonoView);
 		}
 
 		public static async ETTask Refresh(this DlgMain self)
@@ -38,6 +52,12 @@ namespace ET.Client
 		public static async ETTask OnRoleButtonClickHandler(this DlgMain self)
 		{
 			self.Scene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_RoleInfo);
+			await ETTask.CompletedTask;
+		}
+		
+		public static async ETTask OnTaskButtonClickHandler(this DlgMain self)
+		{
+			self.Scene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Adventure);
 			await ETTask.CompletedTask;
 		}
 	}

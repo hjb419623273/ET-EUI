@@ -7,6 +7,7 @@ namespace ET.Client
         {
             scene.AddComponent<UIComponent>();
             scene.AddComponent<ResourcesLoaderComponent>();
+            scene.AddComponent<FlyDamageValueViewComponent>();
             await ETTask.CompletedTask;
         }
     }

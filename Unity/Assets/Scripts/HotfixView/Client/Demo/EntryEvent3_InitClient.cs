@@ -22,6 +22,8 @@ namespace ET.Client
             root.AddComponent<ClientServerInfosComponent>();    //记录服务器信息组件
             root.AddComponent<RoleInfosComponent>();            //记录角色信息 
             
+            //root.AddComponent<BagComponent>();
+            
             await root.AddComponent<RedDotComponent>().PreLoadGameObject();
             
             // 根据配置修改掉Main Fiber的SceneType

@@ -37,6 +37,19 @@ namespace ET.Server
                     unitComponent.Add(unit);
                     return unit;
                 }
+                case UnitType.Monster:
+                {
+                    Unit unit = unitComponent.AddChildWithId<Unit, int>(IdGenerater.Instance.GenerateId(), (int)id);
+                    NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
+                    numericComponent.SetNoEvent(NumericType.MaxHp, unit.Config().MaxHP);
+                    numericComponent.SetNoEvent(NumericType.Hp, unit.Config().MaxHP);
+                    int damageValue = unit.Config().DamageValue;
+                    numericComponent.SetNoEvent(NumericType.DamageValue, damageValue);
+                    numericComponent.SetNoEvent(NumericType.IsAlive, 1);
+                    
+                    unitComponent.Add(unit);
+                    return unit;
+                }
                 default:
                     throw new Exception($"not such unit type: {unitType}");
             }

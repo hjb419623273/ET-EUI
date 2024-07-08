@@ -19,6 +19,8 @@
         public const int PlayerOfflineOutTime = 205;
 
         public const int SaveChangeDBData = 206;
+
+        public const int BattleRound = 207;
         
         public const int RoomUpdate = 301;
     }

@@ -1,5 +1,15 @@
 {"dict": [
-[1001, {"_t":"UnitConfig","_id":1001,"Type":1,"Name":"米克尔","Position":1,"Height":178}],
-[1002, {"_t":"UnitConfig","_id":1002,"Type":1,"Name":"米克尔2","Position":2,"Height":278}],
-[1004, {"_t":"UnitConfig","_id":1004,"Type":1,"Name":"米克尔4","Position":2,"Height":278}],
+[1001, {"_t":"UnitConfig","_id":1001,"Type":1,"Name":"字母哥","Desc":"宝鱼猎杀者","MaxHP":0,"DamageValue":0,"PrefabName":"Knight"}],
+[1002, {"_t":"UnitConfig","_id":1002,"Type":2,"Name":"弱鸡宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":100,"DamageValue":10,"PrefabName":"BaoYu"}],
+[1003, {"_t":"UnitConfig","_id":1003,"Type":2,"Name":"新兵宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":200,"DamageValue":20,"PrefabName":"BaoYu"}],
+[1004, {"_t":"UnitConfig","_id":1004,"Type":2,"Name":"精英宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":300,"DamageValue":30,"PrefabName":"BaoYu"}],
+[1005, {"_t":"UnitConfig","_id":1005,"Type":2,"Name":"专家宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":400,"DamageValue":40,"PrefabName":"BaoYu"}],
+[1006, {"_t":"UnitConfig","_id":1006,"Type":2,"Name":"大师宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":500,"DamageValue":50,"PrefabName":"BaoYu"}],
+[1007, {"_t":"UnitConfig","_id":1007,"Type":2,"Name":"英雄宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":600,"DamageValue":60,"PrefabName":"BaoYu"}],
+[1008, {"_t":"UnitConfig","_id":1008,"Type":2,"Name":"传奇宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":700,"DamageValue":70,"PrefabName":"BaoYu"}],
+[1009, {"_t":"UnitConfig","_id":1009,"Type":2,"Name":"半神宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":800,"DamageValue":80,"PrefabName":"BaoYu"}],
+[1010, {"_t":"UnitConfig","_id":1010,"Type":2,"Name":"圣灵宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":900,"DamageValue":90,"PrefabName":"BaoYu"}],
+[1011, {"_t":"UnitConfig","_id":1011,"Type":2,"Name":"神灵宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":1000,"DamageValue":100,"PrefabName":"BaoYu"}],
+[1012, {"_t":"UnitConfig","_id":1012,"Type":2,"Name":"永生宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":1100,"DamageValue":110,"PrefabName":"BaoYu"}],
+[1013, {"_t":"UnitConfig","_id":1013,"Type":2,"Name":"创世宝鱼","Desc":"吃饭睡觉打宝鱼","MaxHP":1200,"DamageValue":120,"PrefabName":"BaoYu"}],
 ]}

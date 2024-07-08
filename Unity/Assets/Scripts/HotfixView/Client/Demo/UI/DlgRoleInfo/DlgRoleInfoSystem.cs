@@ -21,12 +21,24 @@ namespace ET.Client
 			self.View.ES_AttributeItem3.RegisterEvent(NumericType.Spirit);
 			
 			self.View.E_AttributesLoopVerticalScrollRect.AddItemRefreshListener((Transform transform, int index) => { self.OnAttributeItemRefreshHandler(transform,index); });
-
+			self.View.E_UpLevelButton.AddListenerAsync(self.OnUpRoleLevelHandler);
+			
+			RedDotHelper.AddRedDotNodeView(self.Root(), "UpLevelButton", self.View.E_UpLevelButton.gameObject, Vector3.one, new Vector2(115f, 10f));
+			RedDotHelper.AddRedDotNodeView(self.Root(), "AddAttribute", self.View.E_AttributePointText.gameObject, new Vector3(0.5f, 0.5f, 1), new Vector2(-17, 10f));
 		}
 
 		public static void ShowWindow(this DlgRoleInfo self, Entity contextData = null)
 		{
 			self.Refresh();
+		}
+
+		public static void OnUnLoadWindow(this DlgRoleInfo self)
+		{
+			RedDotMonoView redDotMonoView = self.View.E_UpLevelButton.gameObject.GetComponent<RedDotMonoView>();
+			RedDotHelper.RemoveRedDotView(self.Root(), "UpLevelButton", out redDotMonoView);
+
+			redDotMonoView = self.View.E_AttributePointText.gameObject.GetComponent<RedDotMonoView>();
+			RedDotHelper.RemoveRedDotView(self.Root(), "AddAttribute", out redDotMonoView);
 		}
 
 		public static void Refresh(this DlgRoleInfo self)
@@ -51,7 +63,7 @@ namespace ET.Client
 			Scroll_Item_attribute scrollItemAttribute     = ent.BindTrans(transform);
 			PlayerNumericConfig config                    = PlayerNumericConfigCategory.Instance.GetConfigByIndex(index);
 			scrollItemAttribute.E_attributeNameText.text  = config.Name + ":";
-			Unit unit = UnitHelper.GetMyUnitFromCurrentScene(self.Scene().CurrentScene());
+			Unit unit = UnitHelper.GetMyUnitFromCurrentScene(self.Root().CurrentScene());
 			NumericComponent numericComponent = unit.GetComponent<NumericComponent>();
 			if (config.isPrecent == 0)
 			{
@@ -68,5 +80,20 @@ namespace ET.Client
 			// 		$"{UnitHelper.GetMyUnitNumericComponent(self.Root().CurrentScene()).GetAsFloat(config.Id).ToString("0.00")}%";
 		}
 
+		public static async ETTask OnUpRoleLevelHandler(this DlgRoleInfo self)
+		{
+			try
+			{
+				int errorCode = await NumericHelper.RequestUpRoleLevel(self.Root());
+				if (errorCode != ErrorCode.ERR_Success)
+				{
+					return;
+				}
+			}
+			catch (Exception e)
+			{
+				Log.Error(e.ToString());
+			}
+		}
 	}
 }

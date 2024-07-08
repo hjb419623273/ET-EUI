@@ -18,5 +18,7 @@ namespace ET.Client
 		WindowID_LSLogin,
 		WindowID_LSRoom,
 		WindowID_RoleInfo,
+		WindowID_Adventure,
+		WindowID_Bag,
 	}
 }

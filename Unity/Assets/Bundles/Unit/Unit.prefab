@@ -49,5 +49,8 @@ MonoBehaviour:
     gameObject: {fileID: 1248987324363926, guid: 9e27b0bdab1ad7242a009899d15c0e67,
       type: 3}
   - key: Knight
-    gameObject: {fileID: 1789307125837501963, guid: af23f2101aa3bc145a86373e0d695f5a,
+    gameObject: {fileID: 7865589332997018159, guid: 16272105b19fed64086f98efff1d700c,
+      type: 3}
+  - key: BaoYu
+    gameObject: {fileID: 8223342415290538585, guid: 646c83008f41b5345baf55d37ead1db3,
       type: 3}

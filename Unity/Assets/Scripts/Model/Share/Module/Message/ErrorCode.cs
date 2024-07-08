@@ -60,5 +60,24 @@ namespace ET
         public const int ERR_NumericTypeNotAddPoint = 2000021;      //该属性不能用属性点添加
         
         public const int ERR_AddPointNotEnough = 2000022;
+        
+        public const int ERR_AdventureLevelIdError      = 2000023;
+        
+        public const int ERR_AdventureRoundError        = 2000024;
+        
+        public const int ERR_AdventureResultError       = 2000025;
+        
+        public const int ERR_AdventureWinResultError    = 2000026;
+        
+        public const int ERR_AlreadyAdventureState      = 2000027;
+        
+        public const int ERR_AdventureInDying           = 2000028;
+        
+        public const int ERR_AdventureErrorLevel        = 2000029;
+        
+        public const int ERR_AdventureLevelNotEnough    = 2000030;
+        
+        public const int ERR_ExpNotEnough    = 2000031;
+        public const int ERR_ExpNumError    = 2000032;
     }
 }

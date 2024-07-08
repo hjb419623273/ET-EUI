@@ -51,5 +51,27 @@ namespace ET.Client
             
             return ErrorCode.ERR_Success;
         }
+
+        public static async ETTask<int> RequestUpRoleLevel(Scene scene)
+        {
+            M2C_UpRoleLevel m2CUpRoleLevel = null;
+            try
+            {
+                m2CUpRoleLevel = (M2C_UpRoleLevel)await scene.GetComponent<ClientSenderComponent>().Call(C2M_UpRoleLevel.Create());
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
+
+            if (m2CUpRoleLevel.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error(m2CUpRoleLevel.Error.ToString());
+                return m2CUpRoleLevel.Error;
+            }
+
+            return ErrorCode.ERR_Success;
+        }
     }
 }

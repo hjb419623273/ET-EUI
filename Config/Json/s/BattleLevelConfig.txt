@@ -1,0 +1,14 @@
+{"dict": [
+[1, {"_t":"BattleLevelConfig","_id":1,"MonsterIds":[1002,1002,1002],"MiniEnterLevel":[1,10],"RewardExp":1}],
+[2, {"_t":"BattleLevelConfig","_id":2,"MonsterIds":[1003],"MiniEnterLevel":[10,20],"RewardExp":2}],
+[3, {"_t":"BattleLevelConfig","_id":3,"MonsterIds":[1004],"MiniEnterLevel":[20,30],"RewardExp":3}],
+[4, {"_t":"BattleLevelConfig","_id":4,"MonsterIds":[1005],"MiniEnterLevel":[30,40],"RewardExp":4}],
+[5, {"_t":"BattleLevelConfig","_id":5,"MonsterIds":[1006],"MiniEnterLevel":[40,50],"RewardExp":5}],
+[6, {"_t":"BattleLevelConfig","_id":6,"MonsterIds":[1007],"MiniEnterLevel":[50,60],"RewardExp":6}],
+[7, {"_t":"BattleLevelConfig","_id":7,"MonsterIds":[1008],"MiniEnterLevel":[60,70],"RewardExp":7}],
+[8, {"_t":"BattleLevelConfig","_id":8,"MonsterIds":[1009],"MiniEnterLevel":[70,80],"RewardExp":8}],
+[9, {"_t":"BattleLevelConfig","_id":9,"MonsterIds":[1010],"MiniEnterLevel":[80,90],"RewardExp":9}],
+[10, {"_t":"BattleLevelConfig","_id":10,"MonsterIds":[1011],"MiniEnterLevel":[90,100],"RewardExp":10}],
+[11, {"_t":"BattleLevelConfig","_id":11,"MonsterIds":[1012],"MiniEnterLevel":[100,110],"RewardExp":11}],
+[12, {"_t":"BattleLevelConfig","_id":12,"MonsterIds":[1013],"MiniEnterLevel":[110,120],"RewardExp":12}],
+]}

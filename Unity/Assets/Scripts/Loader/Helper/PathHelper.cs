@@ -46,5 +46,25 @@ namespace ET
 
             }
         }
+        
+        public static string PathUnit(string assetName)
+        {
+            return $"Assets/Bundles/Unit/{assetName}.prefab";
+        }
+
+        public static string PathScene(string sceneName)
+        {
+            return $"Assets/Bundles/Scenes/{sceneName}.unity";
+        }
+
+        public static string PathItem(string poolName)
+        {
+            return $"Assets/Bundles/UI/Demo/Item/{poolName}.prefab";
+        }
+
+        public static string PathAtlas(string atlasName)
+        {
+            return $"Assets/Bundles/Atlas/{atlasName}.spriteatlas";
+        }
     }
 }

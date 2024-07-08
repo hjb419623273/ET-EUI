@@ -1948,6 +1948,195 @@ namespace ET
         }
     }
 
+    [MemoryPackable]
+    [Message(OuterMessage.C2M_StartGameLevel)]
+    [ResponseType(nameof(M2C_StartGameLevel))]
+    public partial class C2M_StartGameLevel : MessageObject, ILocationRequest
+    {
+        public static C2M_StartGameLevel Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2M_StartGameLevel), isFromPool) as C2M_StartGameLevel;
+        }
+
+        [MemoryPackOrder(0)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public int LevelId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.LevelId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_StartGameLevel)]
+    public partial class M2C_StartGameLevel : MessageObject, ILocationResponse
+    {
+        public static M2C_StartGameLevel Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_StartGameLevel), isFromPool) as M2C_StartGameLevel;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(91)]
+        public string Message { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Error = default;
+            this.Message = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.C2M_EndGameLevel)]
+    [ResponseType(nameof(M2C_EndGameLevel))]
+    public partial class C2M_EndGameLevel : MessageObject, ILocationRequest
+    {
+        public static C2M_EndGameLevel Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2M_EndGameLevel), isFromPool) as C2M_EndGameLevel;
+        }
+
+        [MemoryPackOrder(0)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public int Round { get; set; }
+
+        [MemoryPackOrder(2)]
+        public int BattleResult { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Round = default;
+            this.BattleResult = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_EndGameLevel)]
+    public partial class M2C_EndGameLevel : MessageObject, ILocationResponse
+    {
+        public static M2C_EndGameLevel Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_EndGameLevel), isFromPool) as M2C_EndGameLevel;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(91)]
+        public string Message { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Error = default;
+            this.Message = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.C2M_UpRoleLevel)]
+    [ResponseType(nameof(M2C_UpRoleLevel))]
+    public partial class C2M_UpRoleLevel : MessageObject, ILocationRequest
+    {
+        public static C2M_UpRoleLevel Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2M_UpRoleLevel), isFromPool) as C2M_UpRoleLevel;
+        }
+
+        [MemoryPackOrder(0)]
+        public int RpcId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_UpRoleLevel)]
+    public partial class M2C_UpRoleLevel : MessageObject, ILocationResponse
+    {
+        public static M2C_UpRoleLevel Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_UpRoleLevel), isFromPool) as M2C_UpRoleLevel;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(91)]
+        public string Message { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Error = default;
+            this.Message = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
     public static class OuterMessage
     {
         public const ushort HttpGetRouterResponse = 10002;
@@ -2008,5 +2197,11 @@ namespace ET
         public const ushort M2C_TestUnitNumeric = 10057;
         public const ushort C2M_AddAttributePoint = 10058;
         public const ushort M2C_AddAttributePoint = 10059;
+        public const ushort C2M_StartGameLevel = 10060;
+        public const ushort M2C_StartGameLevel = 10061;
+        public const ushort C2M_EndGameLevel = 10062;
+        public const ushort M2C_EndGameLevel = 10063;
+        public const ushort C2M_UpRoleLevel = 10064;
+        public const ushort M2C_UpRoleLevel = 10065;
     }
 }

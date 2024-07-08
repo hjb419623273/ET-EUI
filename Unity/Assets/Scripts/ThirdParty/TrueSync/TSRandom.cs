@@ -29,6 +29,23 @@ namespace TrueSync {
         [MemoryPackInclude]
         private int mti = N + 1;
 
+        /**
+            *  @brief Static instance of {@link TSRandom} with seed 1.
+        **/
+        public static TSRandom instance;
+
+        internal static void Init() {
+            instance = New(1);
+        }
+
+        /**
+         *  @brief Generates a new instance based on a given seed.
+         **/
+        public static TSRandom New(int seed) {
+            TSRandom r = new TSRandom(seed);
+            return r;
+        }
+        
         [MemoryPackConstructor]
         private TSRandom() {
         }
@@ -170,7 +187,7 @@ namespace TrueSync {
             init_genrand((uint)DateTime.Now.Millisecond);
         }
 
-        public void Initialize(int seed) {
+        public void  Initialize(int seed) {
             init_genrand((uint)seed);
         }
 

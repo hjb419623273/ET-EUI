@@ -10,6 +10,7 @@ namespace ET.Server
         protected override void Awake(UnitDBSaveComponent self)
         {
             //启动一个定时器
+            //正式项目设置为5~10min保存一次
             self.Timer = self.Root().GetComponent<TimerComponent>().NewRepeatedTimer(10000, TimerInvokeType.SaveChangeDBData, self);
         }
     }

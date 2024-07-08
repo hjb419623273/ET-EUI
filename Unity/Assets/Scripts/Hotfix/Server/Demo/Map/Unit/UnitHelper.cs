@@ -66,6 +66,7 @@ namespace ET.Server
 
         public static async ETTask InitUnit(Unit unit, bool isNew)
         {
+            unit.GetComponent<NumericComponent>().SetNoEvent(NumericType.BattleRandomSeed,TimeInfo.Instance.ServerNow());
             await ETTask.CompletedTask;
         }
     }

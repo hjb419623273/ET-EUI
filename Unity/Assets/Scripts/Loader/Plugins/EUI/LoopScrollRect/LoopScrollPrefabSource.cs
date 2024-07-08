@@ -1,7 +1,4 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
-using ET;
 using ET.Client;
 
 namespace UnityEngine.UI

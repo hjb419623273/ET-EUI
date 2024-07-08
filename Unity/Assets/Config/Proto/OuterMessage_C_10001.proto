@@ -442,3 +442,45 @@ message M2C_AddAttributePoint // ILocationResponse
 	string Message = 92;
 }
 
+//ResponseType M2C_StartGameLevel
+message C2M_StartGameLevel // ILocationRequest
+{
+	int32 RpcId = 1;
+	int32 LevelId = 2;
+}
+
+message M2C_StartGameLevel // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType M2C_EndGameLevel
+message C2M_EndGameLevel // ILocationRequest
+{
+	int32 RpcId = 1;
+	int32 Round   = 2;
+	int32 BattleResult  = 3;
+}
+
+message M2C_EndGameLevel // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType M2C_UpRoleLevel
+message C2M_UpRoleLevel // ILocationRequest
+{
+	int32 RpcId = 1;
+}
+
+message M2C_UpRoleLevel // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+

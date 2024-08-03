@@ -135,7 +135,7 @@ namespace ET.Server
             int monsterCount = battleLevelConfig.MonsterIds.Length - self.CacheEnemyIdList.Count;
             for (int i = 0; i < monsterCount; i++)
             {
-                Unit monsterUnit = UnitFactory.Create(self.Root(), 1002, UnitType.Monster);
+                Unit monsterUnit = UnitFactory.Create(self.Root(), 1002, UnitType.Monster, true);
                 self.CacheEnemyIdList.Add(monsterUnit.Id);
             }
             //复用怪物Unit

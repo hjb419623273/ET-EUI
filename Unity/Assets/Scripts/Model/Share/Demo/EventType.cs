@@ -1,4 +1,4 @@
-﻿namespace ET.Client
+﻿namespace ET
 {
     public struct SceneChangeStart
     {
@@ -34,6 +34,11 @@
     }
 
     public struct RefreshRoleInfo
+    {
+        
+    }
+
+    public struct RefreshEquipShowItems
     {
         
     }
@@ -75,5 +80,35 @@
     {
         public Unit TargeUnit;
         public long DamamgeValue;
+    }
+
+    public struct RefreshItemPopUp
+    {
+        public Item Item;
+        public ItemContainerType ItemContainerType;
+    }
+    
+    public struct ChangeEquipItem
+    {
+        public Unit Unit;
+        public Item Item;
+        public EquipOp EquipOp;
+    }
+
+    public struct MakeQueueOver
+    {
+        [StaticField]
+        public static readonly MakeQueueOver Instance = new MakeQueueOver();
+    }
+    
+    public struct RefreshMakeEqueue
+    {
+            
+    }
+    
+    public struct MakeProdutionOver
+    {
+        public Unit Unit;
+        public int ProductionConfigId;
     }
 }

@@ -5,35 +5,53 @@ namespace ET.Server
 {
     public static partial class UnitFactory
     {
-        public static Unit Create(Scene scene, long id, UnitType unitType)
+        public static Unit Create(Scene scene, long id, UnitType unitType, bool isNewUnit)
         {
             UnitComponent unitComponent = scene.GetComponent<UnitComponent>();
             switch (unitType)
             {
                 case UnitType.Player:
                 {
-                    Unit unit = unitComponent.AddChildWithId<Unit, int>(id, 1001);
-                    NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
-                    
-                    //读表初始化玩家属性
-                    foreach (var config in PlayerNumericConfigCategory.Instance.GetAll())
+                    Unit unit = isNewUnit ? unitComponent.AddChildWithId<Unit, int>(id, 1001) : unitComponent.GetChild<Unit>(id);
+                    if (unit.GetComponent<NumericComponent>() == null)
                     {
-                        if ( config.Value.BaseValue == 0 )
+                        NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
+                        //读表初始化玩家属性
+                        foreach (var config in PlayerNumericConfigCategory.Instance.GetAll())
                         {
-                            continue;
-                        }
-
-                        if ( config.Key < 3000 ) //小于3000的值都用加成属性推导
-                        {
-                            int baseKey = config.Key * 10 + 1;
-                            numericComponent.SetNoEvent(baseKey,config.Value.BaseValue);
-                        }
-                        else
-                        {
-                            //大于3000的值 直接使用
-                            numericComponent.SetNoEvent(config.Key,config.Value.BaseValue);
+                            if ( config.Value.BaseValue == 0 )
+                            {
+                                continue;
+                            }
+                        
+                            if ( config.Key < 3000 ) //小于3000的值都用加成属性推导
+                            {
+                                int baseKey = config.Key * 10 + 1;
+                                numericComponent.SetNoEvent(baseKey,config.Value.BaseValue);
+                            }
+                            else
+                            {
+                                //大于3000的值 直接使用
+                                numericComponent.SetNoEvent(config.Key,config.Value.BaseValue);
+                            }
                         }
                     }
+
+                    if (unit.GetComponent<BagComponent>() == null)
+                    {
+                        unit.AddComponent<BagComponent>();
+                    }
+
+                    if (unit.GetComponent<EquipmentsComponent>() == null)
+                    {
+                        unit.AddComponent<EquipmentsComponent>();
+                    }
+
+                    if (unit.GetComponent<ForgeComponent>() == null)
+                    {
+                        unit.AddComponent<ForgeComponent>();
+                    }
+                    
                     unitComponent.Add(unit);
                     return unit;
                 }

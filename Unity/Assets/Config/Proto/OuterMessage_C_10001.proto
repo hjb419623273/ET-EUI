@@ -484,3 +484,135 @@ message M2C_UpRoleLevel // ILocationResponse
 	string Message = 92;
 }
 
+message AttributeEntryProto
+{
+	int64 Id = 1;
+	int32 Key = 2;
+	int64 Value = 3;
+	int32 EntryType = 4;
+}
+
+message EquipInfoProto
+{
+	int64 Id    = 1;
+	int32 Score = 2;
+	repeated AttributeEntryProto AttributeEntryProtoList = 3;
+}
+
+message ItemInfo
+{
+	int64 ItemUid      = 1;
+	int32 ItemConfigId = 2;
+	int32 ItemQuality  = 3;
+
+	EquipInfoProto EquipInfo = 4;
+}
+
+message M2C_ItemUpdateOpInfo // IMessage
+{
+	int32 RpcId = 90;
+	ItemInfo ItemInfo = 1;
+	int32    Op       = 2;
+	int32    ContainerType = 3;
+}
+
+message M2C_AllItemsList // IMessage
+{
+	int32 RpcId = 90;
+	repeated ItemInfo ItemInfoList = 1;
+	int32    ContainerType = 2;
+}
+
+
+//ResponseType M2C_EquipItem
+message C2M_EquipItem // ILocationRequest
+{
+	int32 RpcId = 1;
+	int64 ItemUid = 2;
+}
+
+message M2C_EquipItem // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType M2C_UnloadEquipItem
+message C2M_UnloadEquipItem // ILocationRequest
+{
+	int32 RpcId = 1;
+	int32 EquipPosition = 2;
+}
+
+message M2C_UnloadEquipItem // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//ResponseType M2C_SellItem
+message C2M_SellItem // ILocationRequest
+{
+	int32 RpcId = 1;
+	int64 ItemUid = 2;
+}
+
+message M2C_SellItem // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//制作↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+message ProductionProto
+{
+	int64 Id           = 1;
+	int32 ConfigId     = 2;
+	int64 TargetTime   = 3;
+	int64 StartTime    = 4;
+	int32 ProductionState = 5;
+}
+
+//ResponseType M2C_StartProduction
+message C2M_StartProduction // ILocationRequest
+{
+	int32 RpcId    = 1;
+	int32 ConfigId = 2;
+}
+
+message M2C_StartProduction // ILocationResponse
+{
+	int32 RpcId    = 90;
+	int32 Error    = 91;
+	string Message = 92;
+	ProductionProto  ProductionProto = 2;
+}
+
+
+//ResponseType M2C_ReceiveProduction
+message C2M_ReceiveProduction // ILocationRequest
+{
+	int32 RpcId        = 1;
+	int64 ProducitonId = 2;
+}
+
+message M2C_ReceiveProduction // ILocationResponse
+{
+	int32 RpcId    = 90;
+	int32 Error    = 91;
+	string Message = 92;
+	ProductionProto  ProductionProto = 1;
+}
+
+message M2C_AllProductionList // IMessage
+{
+	repeated ProductionProto ProductionProtoList = 1;
+}
+
+
+//end↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑

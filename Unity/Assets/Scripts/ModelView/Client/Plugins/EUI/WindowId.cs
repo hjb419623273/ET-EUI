@@ -17,8 +17,11 @@ namespace ET.Client
     	WindowID_LSLobby,
 		WindowID_LSLogin,
 		WindowID_LSRoom,
+		
 		WindowID_RoleInfo,
 		WindowID_Adventure,
 		WindowID_Bag,
+		WindowID_ItemPopUp,
+		WindowID_Forge,
 	}
 }

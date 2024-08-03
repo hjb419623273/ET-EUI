@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ET.Client
 {
@@ -23,6 +20,13 @@ namespace ET.Client
 			self.View.E_AttributesLoopVerticalScrollRect.AddItemRefreshListener((Transform transform, int index) => { self.OnAttributeItemRefreshHandler(transform,index); });
 			self.View.E_UpLevelButton.AddListenerAsync(self.OnUpRoleLevelHandler);
 			
+			self.View.ES_EquipItem_Head.RegisterEventHandler(EquipPosition.Head);
+			self.View.ES_EquipItem_Clothes.RegisterEventHandler(EquipPosition.Clothes);
+			self.View.ES_EquipItem_Shoes.RegisterEventHandler(EquipPosition.Shoes);
+			self.View.ES_EquipItem_Ring.RegisterEventHandler(EquipPosition.Ring);
+			self.View.ES_EquipItem_Weapon.RegisterEventHandler(EquipPosition.Weapon);
+			self.View.ES_EquipItem_Shield.RegisterEventHandler(EquipPosition.Shield);
+			
 			RedDotHelper.AddRedDotNodeView(self.Root(), "UpLevelButton", self.View.E_UpLevelButton.gameObject, Vector3.one, new Vector2(115f, 10f));
 			RedDotHelper.AddRedDotNodeView(self.Root(), "AddAttribute", self.View.E_AttributePointText.gameObject, new Vector3(0.5f, 0.5f, 1), new Vector2(-17, 10f));
 		}
@@ -30,6 +34,7 @@ namespace ET.Client
 		public static void ShowWindow(this DlgRoleInfo self, Entity contextData = null)
 		{
 			self.Refresh();
+			self.RefreshEquipShowItems();
 		}
 
 		public static void OnUnLoadWindow(this DlgRoleInfo self)
@@ -39,6 +44,16 @@ namespace ET.Client
 
 			redDotMonoView = self.View.E_AttributePointText.gameObject.GetComponent<RedDotMonoView>();
 			RedDotHelper.RemoveRedDotView(self.Root(), "AddAttribute", out redDotMonoView);
+		}
+
+		public static void RefreshEquipShowItems(this DlgRoleInfo self)
+		{
+			self.View.ES_EquipItem_Head.RefreshShowItem(EquipPosition.Head);
+			self.View.ES_EquipItem_Clothes.RefreshShowItem(EquipPosition.Clothes);
+			self.View.ES_EquipItem_Shoes.RefreshShowItem(EquipPosition.Shoes);
+			self.View.ES_EquipItem_Ring.RefreshShowItem(EquipPosition.Ring);
+			self.View.ES_EquipItem_Weapon.RefreshShowItem(EquipPosition.Weapon);
+			self.View.ES_EquipItem_Shield.RefreshShowItem(EquipPosition.Shield);
 		}
 
 		public static void Refresh(this DlgRoleInfo self)
@@ -56,7 +71,11 @@ namespace ET.Client
 			self.AddUIScrollItems(ref self.ScrollItemAttributes,count);
 			self.View.E_AttributesLoopVerticalScrollRect.SetVisible(true,count);
 		}
-		
+
+		public static void Test(this DlgRoleInfo self)
+		{
+		}
+
 		public static void OnAttributeItemRefreshHandler(this DlgRoleInfo self, Transform transform, int index)
 		{
 			Scroll_Item_attribute ent = self.ScrollItemAttributes[index];

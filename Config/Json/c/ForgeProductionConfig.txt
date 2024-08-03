@@ -1,0 +1,4 @@
+{"dict": [
+[1, {"_t":"ForgeProductionConfig","_id":1,"ItemConfigId":1002,"ProductionTime":60,"ConsumId":3016,"ConsumeCount":60,"NeedLevel":1}],
+[2, {"_t":"ForgeProductionConfig","_id":2,"ItemConfigId":1007,"ProductionTime":60,"ConsumId":3017,"ConsumeCount":120,"NeedLevel":2}],
+]}

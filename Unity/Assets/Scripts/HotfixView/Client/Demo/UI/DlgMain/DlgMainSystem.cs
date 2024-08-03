@@ -22,6 +22,16 @@ namespace ET.Client
 				return self.OnTaskButtonClickHandler();
 			});
 			
+			self.View.E_BagButtonButton.AddListenerAsync(() =>
+			{
+				return self.OnBagButtonClickHandler();
+			});
+			
+			self.View.E_ForgeButtonButton.AddListenerAsync(() =>
+			{
+				return self.OnForgeButtonClickHandler();
+			});
+			
 			//红点显示
 			RedDotHelper.AddRedDotNodeView(self.Root(), "Role",self.View.E_RoleInfoButtonButton.gameObject, Vector3.one, new Vector2(75, 55));
 		}
@@ -58,6 +68,18 @@ namespace ET.Client
 		public static async ETTask OnTaskButtonClickHandler(this DlgMain self)
 		{
 			self.Scene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Adventure);
+			await ETTask.CompletedTask;
+		}
+		
+		public static async ETTask OnBagButtonClickHandler(this DlgMain self)
+		{
+			self.Scene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Bag);
+			await ETTask.CompletedTask;
+		}
+		
+		public static async ETTask OnForgeButtonClickHandler(this DlgMain self)
+		{
+			self.Scene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Forge);
 			await ETTask.CompletedTask;
 		}
 	}

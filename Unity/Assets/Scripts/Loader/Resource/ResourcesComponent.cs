@@ -14,6 +14,12 @@ namespace ET
             string result =  $"Assets/Bundles/UI/Dlg/{value}.prefab";
             return result;
         }
+        
+        public static string StringToSA(this string value)
+        {
+            string result =  $"Assets/Bundles/Atlas/{value}.spriteatlas";
+            return result;
+        }
 
     }
     

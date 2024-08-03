@@ -1,4 +1,7 @@
-﻿namespace ET.Server
+﻿using System;
+using System.Security.Cryptography;
+
+namespace ET.Server
 {
     [MessageLocationHandler(SceneType.Map)]
     public class C2M_EndGameLevelHandler : MessageLocationHandler<Unit, C2M_EndGameLevel, M2C_EndGameLevel>
@@ -48,6 +51,18 @@
             numericComponent[NumericType.Exp] += BattleLevelConfigCategory.Instance.Get(levelId).RewardExp;
             
             //下发闯关成功的奖励
+            
+            //测试奖励
+            for (int i = 0; i < 1; i++)
+            {
+                if (!BagHelper.AddItemByConfigId(unit, RandomGenerator.RandomNumber(1002, 1018)))
+                {
+                    Log.Error("增加背包物品失败");
+                }
+            }
+            numericComponent[NumericType.IronStone] += 1000;
+            numericComponent[NumericType.Fur]       += 1000;
+            
             await ETTask.CompletedTask;
         }
     }

@@ -11,6 +11,8 @@ namespace ET.Client
 			{ WindowID.WindowID_Role, new List<string>(){"Item_role",}},
 			{ WindowID.WindowID_RoleInfo, new List<string>(){"Item_attribute",}},
 			{ WindowID.WindowID_Bag, new List<string>(){"Item_bagItem",}},
+			{ WindowID.WindowID_ItemPopUp, new List<string>(){"Item_entry",}},
+			{ WindowID.WindowID_Forge, new List<string>(){"Item_production",}},
         };
     }
 }

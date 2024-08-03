@@ -58,10 +58,24 @@ namespace ET
                     continue;
                 }
                 
+                if (type.FullName.Equals("ET.Client.BagComponent"))
+                {
+                    continue;
+                }   
+                if (type.FullName.Equals("ET.Client.EquipmentsComponent"))
+                {
+                    continue;
+                }   
+                if (type.FullName.Equals("ET.Client.EquipInfoComponent"))
+                {
+                    continue;
+                }  
+                if (type.FullName.Equals("ET.Client.ForgeComponent"))
+                {
+                    continue;
+                }  
                 BsonClassMap.LookupClassMap(type);
             }
-
-            int a = 1;
         }
     }
 }

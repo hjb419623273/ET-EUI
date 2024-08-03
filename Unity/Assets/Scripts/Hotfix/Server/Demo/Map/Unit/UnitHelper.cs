@@ -52,12 +52,14 @@ namespace ET.Server
             gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
             Log.Warning(">>>>>>> player.UnitId" + player.UnitId);
             Unit unit = await UnitCacheHelper.GetUnitCache(gateMapComponent.Scene, player.UnitId);
-
+            
             bool isNewUnit = unit == null;
             //如果没找到该实体 创建一个新的
+            //unit =  UnitFactory.Create(gateMapComponent.Scene, player.UnitId, UnitType.Player);
+            
+            unit =  UnitFactory.Create(gateMapComponent.Scene, player.UnitId, UnitType.Player, isNewUnit);
             if (isNewUnit)
             {
-                unit =  UnitFactory.Create(gateMapComponent.Scene, player.UnitId, UnitType.Player);
                 UnitCacheHelper.AddOrUpdateUnitAllCache(unit);
             }
 

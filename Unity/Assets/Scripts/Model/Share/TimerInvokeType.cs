@@ -22,6 +22,10 @@
 
         public const int BattleRound = 207;
         
+        public const int MakeQueueUI = 208;
+
+        public const int MakeQueueOver = 209;
+        
         public const int RoomUpdate = 301;
     }
 }

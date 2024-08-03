@@ -77,7 +77,25 @@ namespace ET
         
         public const int ERR_AdventureLevelNotEnough    = 2000030;
         
-        public const int ERR_ExpNotEnough    = 2000031;
-        public const int ERR_ExpNumError    = 2000032;
+        public const int ERR_ExpNotEnough               = 2000031;
+        public const int ERR_ExpNumError                = 2000032;
+        
+        //道具不存在
+        public const int ERR_ItemNotExist               = 2000033;
+        
+        public const int ERR_AddBagItemError            = 2000034;
+        
+        public const int ERR_EquipItemError             = 2000035;
+        
+        public const int ERR_BagMaxLoad                 = 2000036;
+
+        public const int ERR_MakeConfigNotExist         = 2000037;
+
+        public const int ERR_MakeConsumeError           = 2000038;
+        
+        public const int ERR_NoMakeQueueOver            = 2000039;
+        
+        public const int ERR_NoMakeFreeQueue            = 2000040;
+        
     }
 }

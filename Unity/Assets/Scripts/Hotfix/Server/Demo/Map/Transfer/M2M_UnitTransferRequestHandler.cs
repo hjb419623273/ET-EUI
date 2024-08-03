@@ -41,6 +41,13 @@ namespace ET.Server
             m2CCreateUnits.Unit = UnitHelper.CreateUnitInfo(unit);  //转换UnitInfo
             MapMessageHelper.SendToClient(unit, m2CCreateUnits);
 
+            // 通知客户端同步背包信息
+            ItemUpdateNoticeHelper.SyncAllBagItem(unit);
+            // 通知客户端同步装备信息
+            ItemUpdateNoticeHelper.SyncAllEquipItems(unit);
+            // 通知客户端同步打造信息
+            ForgeHelper.SyncAllProduction(unit);
+            
             unit.AddComponent<NumericNoticeComponent>();
             unit.AddComponent<AdventureCheckComponent>();
             // 加入aoi

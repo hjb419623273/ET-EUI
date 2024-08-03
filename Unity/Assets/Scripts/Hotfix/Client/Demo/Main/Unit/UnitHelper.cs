@@ -17,7 +17,7 @@
         
         public static NumericComponent GetMyUnitNumericComponent(Scene currentScene)
         {
-            PlayerComponent playerComponent = currentScene?.Scene()?.GetComponent<PlayerComponent>();
+            PlayerComponent playerComponent = currentScene.Root().GetComponent<PlayerComponent>();
             if ( null == playerComponent )
             {
                 return null;

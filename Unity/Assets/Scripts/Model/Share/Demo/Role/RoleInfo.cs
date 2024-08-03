@@ -8,7 +8,7 @@
     }
     
     [ChildOf]
-    public class RoleInfo : Entity,IAwake
+    public class RoleInfo : Entity,IAwake,ISerializeToEntity
     {
         public string Name;
 

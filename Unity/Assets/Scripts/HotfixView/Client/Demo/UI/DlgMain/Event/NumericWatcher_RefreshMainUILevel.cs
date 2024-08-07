@@ -5,7 +5,7 @@
     {
         public void Run(Unit unit, NumbericChange args)
         {
-            unit.Scene().GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.Refresh();
+            unit.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.Refresh();
         }
     }
 }

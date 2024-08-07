@@ -24,5 +24,6 @@
         {
             self.RoleInfos.Add(serverInfo);
         }
+        
     }
 }

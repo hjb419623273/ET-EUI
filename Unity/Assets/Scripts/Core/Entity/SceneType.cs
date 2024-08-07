@@ -28,7 +28,8 @@ namespace ET
 		
 		LoginCenter = 1 << 20, //登录中心服
 		UnitCache = 1 << 21,   //数据缓存服
-		
+		Rank = 1 << 22,		   //排行榜服
+		ChatInfo = 1 << 23,    //聊天服
 		// 客户端
 		Demo = 1 << 30,
 		Current = 1L << 31,

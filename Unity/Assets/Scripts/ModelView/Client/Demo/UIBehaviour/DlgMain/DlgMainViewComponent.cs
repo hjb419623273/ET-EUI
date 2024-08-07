@@ -211,7 +211,7 @@ namespace ET.Client
      		}
      	}
 
-		public UnityEngine.UI.Text ELabel_LvText
+		public UnityEngine.UI.Button E_TasksButtonButton
      	{
      		get
      		{
@@ -220,15 +220,15 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_ELabel_LvText == null )
+     			if( this.m_E_TasksButtonButton == null )
      			{
-		    		this.m_ELabel_LvText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"UI/Top/ELabel_Lv");
+		    		this.m_E_TasksButtonButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"UI/Bottom/E_TasksButton");
      			}
-     			return this.m_ELabel_LvText;
+     			return this.m_E_TasksButtonButton;
      		}
      	}
 
-		public UnityEngine.UI.Text ELabel_CoinText
+		public UnityEngine.UI.Image E_TasksButtonImage
      	{
      		get
      		{
@@ -237,15 +237,15 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_ELabel_CoinText == null )
+     			if( this.m_E_TasksButtonImage == null )
      			{
-		    		this.m_ELabel_CoinText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"UI/Top/ELabel_Coin");
+		    		this.m_E_TasksButtonImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"UI/Bottom/E_TasksButton");
      			}
-     			return this.m_ELabel_CoinText;
+     			return this.m_E_TasksButtonImage;
      		}
      	}
 
-		public UnityEngine.UI.Text ELabel_ExpText
+		public UnityEngine.UI.Text E_Label_LvText
      	{
      		get
      		{
@@ -254,11 +254,45 @@ namespace ET.Client
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_ELabel_ExpText == null )
+     			if( this.m_E_Label_LvText == null )
      			{
-		    		this.m_ELabel_ExpText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"UI/Top/ELabel_Exp");
+		    		this.m_E_Label_LvText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"UI/Top/E_Label_Lv");
      			}
-     			return this.m_ELabel_ExpText;
+     			return this.m_E_Label_LvText;
+     		}
+     	}
+
+		public UnityEngine.UI.Text E_Label_CoinText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_Label_CoinText == null )
+     			{
+		    		this.m_E_Label_CoinText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"UI/Top/E_Label_Coin");
+     			}
+     			return this.m_E_Label_CoinText;
+     		}
+     	}
+
+		public UnityEngine.UI.Text E_Label_ExpText
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_Label_ExpText == null )
+     			{
+		    		this.m_E_Label_ExpText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"UI/Top/E_Label_Exp");
+     			}
+     			return this.m_E_Label_ExpText;
      		}
      	}
 
@@ -276,9 +310,11 @@ namespace ET.Client
 			this.m_E_RankButtonImage = null;
 			this.m_E_TaskButtonButton = null;
 			this.m_E_TaskButtonImage = null;
-			this.m_ELabel_LvText = null;
-			this.m_ELabel_CoinText = null;
-			this.m_ELabel_ExpText = null;
+			this.m_E_TasksButtonButton = null;
+			this.m_E_TasksButtonImage = null;
+			this.m_E_Label_LvText = null;
+			this.m_E_Label_CoinText = null;
+			this.m_E_Label_ExpText = null;
 			this.uiTransform = null;
 		}
 
@@ -294,9 +330,11 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_RankButtonImage = null;
 		private UnityEngine.UI.Button m_E_TaskButtonButton = null;
 		private UnityEngine.UI.Image m_E_TaskButtonImage = null;
-		private UnityEngine.UI.Text m_ELabel_LvText = null;
-		private UnityEngine.UI.Text m_ELabel_CoinText = null;
-		private UnityEngine.UI.Text m_ELabel_ExpText = null;
+		private UnityEngine.UI.Button m_E_TasksButtonButton = null;
+		private UnityEngine.UI.Image m_E_TasksButtonImage = null;
+		private UnityEngine.UI.Text m_E_Label_LvText = null;
+		private UnityEngine.UI.Text m_E_Label_CoinText = null;
+		private UnityEngine.UI.Text m_E_Label_ExpText = null;
 		public Transform uiTransform = null;
 	}
 }

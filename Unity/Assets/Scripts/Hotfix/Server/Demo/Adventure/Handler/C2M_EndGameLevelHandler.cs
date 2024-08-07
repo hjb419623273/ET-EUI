@@ -47,6 +47,7 @@ namespace ET.Server
             
             numericComponent.Set(NumericType.AdventureState, 0);
             
+            EventSystem.Instance.Publish(unit.Root(),new ET.BattleWin(){Unit =  unit,LevelId =  levelId});
             //战斗胜利增加经验值
             numericComponent[NumericType.Exp] += BattleLevelConfigCategory.Instance.Get(levelId).RewardExp;
             

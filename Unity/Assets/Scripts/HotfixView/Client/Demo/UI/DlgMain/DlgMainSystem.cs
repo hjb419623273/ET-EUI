@@ -19,7 +19,7 @@ namespace ET.Client
 			
 			self.View.E_TaskButtonButton.AddListenerAsync(() =>
 			{
-				return self.OnTaskButtonClickHandler();
+				return self.OnAdventrureButtonClickHandler();
 			});
 			
 			self.View.E_BagButtonButton.AddListenerAsync(() =>
@@ -31,7 +31,16 @@ namespace ET.Client
 			{
 				return self.OnForgeButtonClickHandler();
 			});
+
+			self.View.E_TasksButtonButton.AddListenerAsync(() =>
+			{
+				return self.OnTaskButtonClickHandler();
+			});
 			
+			self.View.E_RankButtonButton.AddListenerAsync(() =>
+			{
+				return self.OnRankButtonClickHandler();
+			});
 			//红点显示
 			RedDotHelper.AddRedDotNodeView(self.Root(), "Role",self.View.E_RoleInfoButtonButton.gameObject, Vector3.one, new Vector2(75, 55));
 		}
@@ -52,10 +61,9 @@ namespace ET.Client
 			Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
 			NumericComponent numericComponent = unit.GetComponent<NumericComponent>();
 			
-			self.View.ELabel_LvText.SetText($"Lv.{numericComponent.GetAsInt((int)NumericType.Level)}");
-			self.View.ELabel_CoinText.SetText($"金币: {numericComponent.GetAsInt((int)NumericType.Coin).ToString()}");
-			self.View.ELabel_ExpText.SetText($"经验: {numericComponent.GetAsInt((int)NumericType.Exp).ToString()}");
-
+			self.View.E_Label_LvText.SetText($"Lv.{numericComponent.GetAsInt((int)NumericType.Level)}");
+			self.View.E_Label_CoinText.SetText($"金币: {numericComponent.GetAsInt((int)NumericType.Coin).ToString()}");
+			self.View.E_Label_ExpText.SetText($"经验: {numericComponent.GetAsInt((int)NumericType.Exp).ToString()}");
 			await ETTask.CompletedTask;
 		}
 
@@ -65,7 +73,7 @@ namespace ET.Client
 			await ETTask.CompletedTask;
 		}
 		
-		public static async ETTask OnTaskButtonClickHandler(this DlgMain self)
+		public static async ETTask OnAdventrureButtonClickHandler(this DlgMain self)
 		{
 			self.Scene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Adventure);
 			await ETTask.CompletedTask;
@@ -80,6 +88,18 @@ namespace ET.Client
 		public static async ETTask OnForgeButtonClickHandler(this DlgMain self)
 		{
 			self.Scene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Forge);
+			await ETTask.CompletedTask;
+		}
+		
+		public static async ETTask OnTaskButtonClickHandler(this DlgMain self)
+		{
+			self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Task);
+			await ETTask.CompletedTask;
+		}
+		
+		public static async ETTask OnRankButtonClickHandler(this DlgMain self)
+		{
+			self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Rank);
 			await ETTask.CompletedTask;
 		}
 	}

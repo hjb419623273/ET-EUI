@@ -26,6 +26,8 @@
 
         public const int MakeQueueOver = 209;
         
+        public const int RankUI = 210;
+        
         public const int RoomUpdate = 301;
     }
 }

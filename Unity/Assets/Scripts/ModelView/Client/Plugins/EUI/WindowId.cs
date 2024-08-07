@@ -23,5 +23,7 @@ namespace ET.Client
 		WindowID_Bag,
 		WindowID_ItemPopUp,
 		WindowID_Forge,
+		WindowID_Task,
+		WindowID_Rank,
 	}
 }

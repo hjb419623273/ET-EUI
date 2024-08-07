@@ -59,6 +59,27 @@ namespace ET.Server
                     }
                     break;
                 }
+                case IActorRankInfoMessage actorRankInfoMessage:
+                {
+                    ActorId rankActorId = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "Rank").ActorId;
+                    //gate转发给排行榜服
+                    session.Root().GetComponent<MessageSender>().Send(rankActorId, actorRankInfoMessage);
+                    break;
+                }
+                case IActorRankInfoRequest actorRankInfoRequest:
+                {
+                    ActorId rankInstanceId = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "Rank").ActorId;
+                    int rpcId = actorRankInfoRequest.RpcId;
+                    long instanceId = session.InstanceId;
+                    IResponse iResponse = await session.Root().GetComponent<MessageSender>().Call(rankInstanceId, actorRankInfoRequest);
+                    iResponse.RpcId = rpcId;
+                    // session可能已经断开了，所以这里需要判断
+                    if (session.InstanceId == instanceId)
+                    {
+                        session.Send(iResponse);
+                    }
+                    break;
+                }
                 case IRequest actorRequest:  // 分发IActorRequest消息，目前没有用到，需要的自己添加
                 {
                     break;

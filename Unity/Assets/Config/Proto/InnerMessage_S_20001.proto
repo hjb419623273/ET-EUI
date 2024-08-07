@@ -235,6 +235,22 @@ message L2G_RemoveLoginRecord // IResponse
 	string Message = 3;
 }
 
+// ResponseType L2G_GetRoleInfo
+message G2L_GetRoleInfo // IRequest
+{
+	int32 RpcId = 1;
+	string AccountName = 2;
+	int64 RoleId = 3;
+}
+
+message L2G_GetRoleInfo // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	repeated RoleInfoProto RoleInfo = 4;
+}
+
 // ResponseType M2G_SecondLogin
 message G2M_SecondLogin // ILocationRequest
 {
@@ -261,6 +277,14 @@ message M2G_RequestExitGame // ILocationResponse
 	string Message = 3;
 }
 
+//--------------------排行榜相关---------------------
+message Map2Rank_AddOrUpdateRankInfo // IMessage
+{
+	int32 RpcId = 90;
+	int64 unitId = 1;
+	string roleName = 2;
+	int32 count = 3;
+}
 
 //--------------------玩家缓存相关--------------------
 
@@ -318,3 +342,4 @@ message UnitCache2Other_DeleteUnit //IResponse
 	string Message = 92;
 }
 
+//end--------------------玩家缓存相关--------------------

@@ -5,6 +5,8 @@ namespace ET.Server
 {
     [FriendOf(typeof(MoveComponent))]
     [FriendOf(typeof(NumericComponent))]
+    [FriendOfAttribute(typeof(ET.RoleInfo))]
+    [FriendOfAttribute(typeof(ET.Server.UnitRoleInfo))]
     public static partial class UnitHelper
     {
         public static UnitInfo CreateUnitInfo(Unit unit)
@@ -39,36 +41,39 @@ namespace ET.Server
 
             return unitInfo;
         }
-        
+
         // 获取看见unit的玩家，主要用于广播
         public static Dictionary<long, EntityRef<AOIEntity>> GetBeSeePlayers(this Unit self)
         {
             return self.GetComponent<AOIEntity>().GetBeSeePlayers();
         }
-        
+
         public static async ETTask<(bool, Unit)> LoadUnit(Player player)
         {
             GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
             gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
             Log.Warning(">>>>>>> player.UnitId" + player.UnitId);
             Unit unit = await UnitCacheHelper.GetUnitCache(gateMapComponent.Scene, player.UnitId);
-            
+
             bool isNewUnit = unit == null;
             //如果没找到该实体 创建一个新的
             //unit =  UnitFactory.Create(gateMapComponent.Scene, player.UnitId, UnitType.Player);
-            
-            unit =  UnitFactory.Create(gateMapComponent.Scene, player.UnitId, UnitType.Player, isNewUnit);
+
+            unit = UnitFactory.Create(gateMapComponent.Scene, player.UnitId, UnitType.Player, isNewUnit);
             if (isNewUnit)
             {
                 UnitCacheHelper.AddOrUpdateUnitAllCache(unit);
             }
+            
+            //更新角色信息 写在这里合适吗
+            await LoginCenterHelper.GetRoleInfo(player, unit);
 
             return (isNewUnit, unit);
         }
 
         public static async ETTask InitUnit(Unit unit, bool isNew)
         {
-            unit.GetComponent<NumericComponent>().SetNoEvent(NumericType.BattleRandomSeed,TimeInfo.Instance.ServerNow());
+            unit.GetComponent<NumericComponent>().SetNoEvent(NumericType.BattleRandomSeed, TimeInfo.Instance.ServerNow());
             await ETTask.CompletedTask;
         }
     }

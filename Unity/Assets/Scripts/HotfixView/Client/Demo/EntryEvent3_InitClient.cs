@@ -24,7 +24,9 @@ namespace ET.Client
             root.AddComponent<BagComponent>();                  //背包组件                  
             root.AddComponent<EquipmentsComponent>();           
             root.AddComponent<ForgeComponent>();                //打造
-
+            root.AddComponent<TasksComponent>();                //任务
+            root.AddComponent<RankComponent>();                 //排行榜
+            
             await root.AddComponent<RedDotComponent>().PreLoadGameObject();
             
             // 根据配置修改掉Main Fiber的SceneType

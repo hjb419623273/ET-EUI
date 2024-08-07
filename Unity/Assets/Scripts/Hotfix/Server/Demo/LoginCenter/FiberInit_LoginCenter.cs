@@ -13,11 +13,10 @@ namespace ET.Server
             root.AddComponent<CoroutineLockComponent>();
             root.AddComponent<ProcessInnerSender>();
             root.AddComponent<MessageSender>();
-   
-
+            root.AddComponent<DBManagerComponent>();
+            
             //记录角色账号登录信息
             root.AddComponent<LoginInfoRecordComponent>();
-
             
             await ETTask.CompletedTask;
         }

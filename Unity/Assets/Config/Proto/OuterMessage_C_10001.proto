@@ -613,6 +613,63 @@ message M2C_AllProductionList // IMessage
 {
 	repeated ProductionProto ProductionProtoList = 1;
 }
+//end↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
+//任务↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+message TaskInfoProto
+{
+	int32 ConfigId  = 1;
 
+	int32 TaskState = 2;
+
+	int32 TaskPogress = 3;
+}
+
+message M2C_UpdateTaskInfo // IMessage
+{
+	TaskInfoProto TaskInfoProto = 1;
+}
+
+message M2C_AllTaskInfoList // IMessage
+{
+	repeated TaskInfoProto TaskInfoProtoList = 1;
+}
+
+//ResponseType M2C_ReceiveTaskReward
+message C2M_ReceiveTaskReward // ILocationRequest
+{
+	int32 RpcId        = 1;
+	int32 TaskConfigId = 2;
+}
+
+message M2C_ReceiveTaskReward // ILocationResponse
+{
+	int32 RpcId    = 90;
+	int32 Error    = 91;
+	string Message = 92;
+}
+//end↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+//排行榜↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+message RankInfoProto
+{
+	int64 Id = 1;
+	int64 UnitId = 2;
+	string Name = 3;
+	int32 Count = 5;
+}
+
+//ResponseType Rank2C_GetRanksInfo
+message C2Rank_GetRanksInfo // IActorRankInfoRequest
+{
+	int32 RpcId        = 1;
+}
+
+message Rank2C_GetRanksInfo // IActorRankInfoResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated RankInfoProto RankInfoProtoList = 1;
+}
 //end↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑

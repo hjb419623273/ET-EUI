@@ -111,4 +111,15 @@
         public Unit Unit;
         public int ProductionConfigId;
     }
+    
+    public struct UpdateTaskInfo
+    {
+        public Scene Scene;
+    }
+    
+    public struct BattleWin
+    {
+        public Unit Unit;
+        public int  LevelId;
+    }
 }

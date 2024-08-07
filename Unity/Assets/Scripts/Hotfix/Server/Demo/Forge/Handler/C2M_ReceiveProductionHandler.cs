@@ -28,7 +28,7 @@
                 response.Error = ErrorCode.ERR_AddBagItemError;
                 return;
             }
-            // EventSystem.Instance.Publish(unit.Root(),new MakeProdutionOver(){Unit = unit,ProductionConfigId = production.ConfigId});
+            EventSystem.Instance.Publish(unit.Root(),new MakeProdutionOver(){Unit = unit,ProductionConfigId = production.ConfigId});
             production.Reset();
             response.ProductionProto = production.ToMessage();
             

@@ -1058,6 +1058,77 @@ namespace ET
     }
 
     [MemoryPackable]
+    [Message(InnerMessage.G2L_GetRoleInfo)]
+    [ResponseType(nameof(L2G_GetRoleInfo))]
+    public partial class G2L_GetRoleInfo : MessageObject, IRequest
+    {
+        public static G2L_GetRoleInfo Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(G2L_GetRoleInfo), isFromPool) as G2L_GetRoleInfo;
+        }
+
+        [MemoryPackOrder(0)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public string AccountName { get; set; }
+
+        [MemoryPackOrder(2)]
+        public long RoleId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.AccountName = default;
+            this.RoleId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(InnerMessage.L2G_GetRoleInfo)]
+    public partial class L2G_GetRoleInfo : MessageObject, IResponse
+    {
+        public static L2G_GetRoleInfo Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(L2G_GetRoleInfo), isFromPool) as L2G_GetRoleInfo;
+        }
+
+        [MemoryPackOrder(0)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(2)]
+        public string Message { get; set; }
+
+        [MemoryPackOrder(3)]
+        public List<RoleInfoProto> RoleInfo { get; set; } = new();
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Error = default;
+            this.Message = default;
+            this.RoleInfo.Clear();
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
     [Message(InnerMessage.G2M_SecondLogin)]
     [ResponseType(nameof(M2G_SecondLogin))]
     public partial class G2M_SecondLogin : MessageObject, ILocationRequest
@@ -1170,6 +1241,44 @@ namespace ET
             this.RpcId = default;
             this.Error = default;
             this.Message = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    // --------------------排行榜相关---------------------
+    [MemoryPackable]
+    [Message(InnerMessage.Map2Rank_AddOrUpdateRankInfo)]
+    public partial class Map2Rank_AddOrUpdateRankInfo : MessageObject, IMessage
+    {
+        public static Map2Rank_AddOrUpdateRankInfo Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(Map2Rank_AddOrUpdateRankInfo), isFromPool) as Map2Rank_AddOrUpdateRankInfo;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(0)]
+        public long unitId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public string roleName { get; set; }
+
+        [MemoryPackOrder(2)]
+        public int count { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.unitId = default;
+            this.roleName = default;
+            this.count = default;
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -1400,6 +1509,7 @@ namespace ET
         }
     }
 
+    // end--------------------玩家缓存相关--------------------
     public static class InnerMessage
     {
         public const ushort ObjectQueryRequest = 20002;
@@ -1433,15 +1543,18 @@ namespace ET
         public const ushort L2G_AddLoginRecord = 20030;
         public const ushort G2L_RemoveLoginRecord = 20031;
         public const ushort L2G_RemoveLoginRecord = 20032;
-        public const ushort G2M_SecondLogin = 20033;
-        public const ushort M2G_SecondLogin = 20034;
-        public const ushort G2M_RequestExitGame = 20035;
-        public const ushort M2G_RequestExitGame = 20036;
-        public const ushort Other2UnitCache_AddOrUpdateUnit = 20037;
-        public const ushort UnitCache2Other_AddOrUpdateUnit = 20038;
-        public const ushort Other2UnitCache_GetUnit = 20039;
-        public const ushort UnitCache2Other_GetUnit = 20040;
-        public const ushort Other2UnitCache_DeleteUnit = 20041;
-        public const ushort UnitCache2Other_DeleteUnit = 20042;
+        public const ushort G2L_GetRoleInfo = 20033;
+        public const ushort L2G_GetRoleInfo = 20034;
+        public const ushort G2M_SecondLogin = 20035;
+        public const ushort M2G_SecondLogin = 20036;
+        public const ushort G2M_RequestExitGame = 20037;
+        public const ushort M2G_RequestExitGame = 20038;
+        public const ushort Map2Rank_AddOrUpdateRankInfo = 20039;
+        public const ushort Other2UnitCache_AddOrUpdateUnit = 20040;
+        public const ushort UnitCache2Other_AddOrUpdateUnit = 20041;
+        public const ushort Other2UnitCache_GetUnit = 20042;
+        public const ushort UnitCache2Other_GetUnit = 20043;
+        public const ushort Other2UnitCache_DeleteUnit = 20044;
+        public const ushort UnitCache2Other_DeleteUnit = 20045;
     }
 }

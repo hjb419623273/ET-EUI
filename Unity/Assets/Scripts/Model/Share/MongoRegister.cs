@@ -73,6 +73,10 @@ namespace ET
                 if (type.FullName.Equals("ET.Client.ForgeComponent"))
                 {
                     continue;
+                } 
+                if (type.FullName.Equals("ET.Client.TasksComponent"))
+                {
+                    continue;
                 }  
                 BsonClassMap.LookupClassMap(type);
             }

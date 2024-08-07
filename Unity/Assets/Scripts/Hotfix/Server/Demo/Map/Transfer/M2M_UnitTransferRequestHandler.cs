@@ -47,6 +47,8 @@ namespace ET.Server
             ItemUpdateNoticeHelper.SyncAllEquipItems(unit);
             // 通知客户端同步打造信息
             ForgeHelper.SyncAllProduction(unit);
+            // 通知客户端同步任务信息
+            TaskNoticeHelper.SyncAllTaskInfo(unit);
             
             unit.AddComponent<NumericNoticeComponent>();
             unit.AddComponent<AdventureCheckComponent>();

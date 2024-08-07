@@ -1,0 +1,5 @@
+{"dict": [
+[1, {"_t":"TaskActionConfig","_id":1,"TaskProgressType":3}],
+[2, {"_t":"TaskActionConfig","_id":2,"TaskProgressType":1}],
+[3, {"_t":"TaskActionConfig","_id":3,"TaskProgressType":1}],
+]}

@@ -52,6 +52,15 @@ namespace ET.Server
                         unit.AddComponent<ForgeComponent>();
                     }
                     
+                    if (unit.GetComponent<TasksComponent>() == null)
+                    {
+                        unit.AddComponent<TasksComponent>();
+                    }
+                    
+                    if (unit.GetComponent<UnitRoleInfo>() == null)
+                    {
+                        unit.AddComponent<UnitRoleInfo>();
+                    }
                     unitComponent.Add(unit);
                     return unit;
                 }

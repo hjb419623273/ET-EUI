@@ -3,117 +3,131 @@
 namespace ET.Server
 {
     [MessageSessionHandler(SceneType.Gate)]
+    [FriendOfAttribute(typeof(ET.Server.UnitRoleInfo))]
     public class C2G_EnterGameHandler : MessageSessionHandler<C2G_EnterGame, G2C_EnterGame>
     {
         protected override async ETTask Run(Session session, C2G_EnterGame request, G2C_EnterGame response)
         {
             if (session.GetComponent<SessionLockingComponent>() != null)
-			{
-				response.Error = ErrorCode.ERR_RequestRepeatedly;
-				return;
-			}
-			
-			SessionPlayerComponent sessionPlayerComponent = session.GetComponent<SessionPlayerComponent>();
-			//游戏客户端并未连接到gate网关
-			if (null == sessionPlayerComponent)
-			{
-				response.Error = ErrorCode.ERR_SessionPlayerError;
-				return;
-			}
-			
-			Player player = sessionPlayerComponent.Player;
-			
-			if (player == null || player.IsDisposed)
-			{
-				response.Error = ErrorCode.ERR_NonePlayerError;
-				return;
-			}
+            {
+                response.Error = ErrorCode.ERR_RequestRepeatedly;
+                return;
+            }
 
-			CoroutineLockComponent coroutineLockComponent = session.Root().GetComponent<CoroutineLockComponent>();
-			
-			long instanceId = session.InstanceId;
+            SessionPlayerComponent sessionPlayerComponent = session.GetComponent<SessionPlayerComponent>();
+            //游戏客户端并未连接到gate网关
+            if (null == sessionPlayerComponent)
+            {
+                response.Error = ErrorCode.ERR_SessionPlayerError;
+                return;
+            }
 
-			using (session.AddComponent<SessionLockingComponent>())
-			{
-				using (await coroutineLockComponent.Wait(CoroutineLockType.LoginGate, player.Account.GetLongHashCode()))
-				{
-					//等待过程中seesion可能已经被释放掉 或者 player实体被释放掉
-					if (instanceId != session.InstanceId || player.IsDisposed)
-					{
-						response.Error = ErrorCode.ERR_PlayerSessionError;
-						
-						return;
-					}
-					
-					if (player.PlayerState == PlayerState.Game)
-					{
-						try
-						{
-							G2M_SecondLogin g2MSecondLogin = G2M_SecondLogin.Create();
-							IResponse reqEnter = await session.Root().GetComponent<MessageLocationSenderComponent>()
-															.Get(LocationType.Unit).Call(player.UnitId, g2MSecondLogin);
-							if (reqEnter.Error == ErrorCode.ERR_Success)
-							{
-						
-								Log.Console("作业:二次登陆逻辑，补全下发切换场景消息");
-								
-								return;
-							}
-							Log.Error("二次登录失败  "+ reqEnter.Error +" | " + reqEnter.Message);
-							response.Error = ErrorCode.ERR_ReEnterGameError;
-							await DisconnectHelper.KickPlayerNoLock(player);
-							session.Disconnect().Coroutine();
-						}
-						catch (Exception e)
-						{
-							Log.Error("二次登录失败  " + e);
-							response.Error = ErrorCode.ERR_ReEnterGameError2;
-							await DisconnectHelper.KickPlayerNoLock(player);
-							
-							session.Disconnect().Coroutine();
-						}
-						return;
-					}
-					
-					try
-					{
-						
-						// 在Gate上动态创建一个Map Scene，把Unit从DB中加载放进来，然后传送到真正的Map中，这样登陆跟传送的逻辑就完全一样了
-						// GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
-						// gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
+            Player player = sessionPlayerComponent.Player;
 
-						// Scene scene = gateMapComponent.Scene;
-			
-						// 这里可以从DB中加载Unit
-						// Unit unit = UnitFactory.Create(scene, player.Id, UnitType.Player);
-						// long unitId = unit.Id;
-						
-						// 从数据库或者缓存中加载出unit实体相关组件
-						(bool isNewPlayer, Unit unit) = await UnitHelper.LoadUnit(player);
-						
-						//玩家unit上线后的初始化操作（针对业务逻辑）
-						await UnitHelper.InitUnit(unit, isNewPlayer);
-						long unitId = unit.Id;
-						
-						//map1 map2等 是为了分摊服务器压力？ 类似魔兽世界？
-						StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "Map1");
-						
-						// 等到一帧的最后面再传送，先让G2C_EnterMap返回，否则传送消息可能比G2C_EnterMap还早
-						TransferHelper.TransferAtFrameFinish(unit, startSceneConfig.ActorId, startSceneConfig.Name).Coroutine();
-						player.UnitId          = unitId;
-						response.MyUnitId      = unitId;
-						player.PlayerState     = PlayerState.Game;
-					}
-					catch (Exception e)
-					{
-						
-						Log.Error($"角色进入游戏逻辑服出现问题 账号Id: {player.Account}  角色Id: {player.Id}   异常信息： {e}");
-						response.Error = ErrorCode.ERR_EnterGameError;
-						await DisconnectHelper.KickPlayerNoLock(player);
-						session.Disconnect().Coroutine();
-					}
-				}
-			}
+            if (player == null || player.IsDisposed)
+            {
+                response.Error = ErrorCode.ERR_NonePlayerError;
+                return;
+            }
+
+            CoroutineLockComponent coroutineLockComponent = session.Root().GetComponent<CoroutineLockComponent>();
+
+            long instanceId = session.InstanceId;
+
+            using (session.AddComponent<SessionLockingComponent>())
+            {
+                using (await coroutineLockComponent.Wait(CoroutineLockType.LoginGate, player.Account.GetLongHashCode()))
+                {
+                    //等待过程中seesion可能已经被释放掉 或者 player实体被释放掉
+                    if (instanceId != session.InstanceId || player.IsDisposed)
+                    {
+                        response.Error = ErrorCode.ERR_PlayerSessionError;
+
+                        return;
+                    }
+
+                    if (player.PlayerState == PlayerState.Game)
+                    {
+                        try
+                        {
+                            G2M_SecondLogin g2MSecondLogin = G2M_SecondLogin.Create();
+                            IResponse reqEnter = await session.Root().GetComponent<MessageLocationSenderComponent>()
+                                                            .Get(LocationType.Unit).Call(player.UnitId, g2MSecondLogin);
+                            if (reqEnter.Error == ErrorCode.ERR_Success)
+                            {
+
+                                Log.Console("作业:二次登陆逻辑，补全下发切换场景消息");
+
+                                return;
+                            }
+                            Log.Error("二次登录失败  " + reqEnter.Error + " | " + reqEnter.Message);
+                            response.Error = ErrorCode.ERR_ReEnterGameError;
+                            await DisconnectHelper.KickPlayerNoLock(player);
+                            session.Disconnect().Coroutine();
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Error("二次登录失败  " + e);
+                            response.Error = ErrorCode.ERR_ReEnterGameError2;
+                            await DisconnectHelper.KickPlayerNoLock(player);
+
+                            session.Disconnect().Coroutine();
+                        }
+                        return;
+                    }
+
+                    try
+                    {
+
+                        // 在Gate上动态创建一个Map Scene，把Unit从DB中加载放进来，然后传送到真正的Map中，这样登陆跟传送的逻辑就完全一样了
+                        // GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
+                        // gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
+
+                        // Scene scene = gateMapComponent.Scene;
+
+                        // 这里可以从DB中加载Unit
+                        // Unit unit = UnitFactory.Create(scene, player.Id, UnitType.Player);
+                        // long unitId = unit.Id;
+
+                        // 从数据库或者缓存中加载出unit实体相关组件
+                        (bool isNewPlayer, Unit unit) = await UnitHelper.LoadUnit(player);
+
+                        player.ChatInfoActorId = await this.EnterWorldChatServer(unit,player); //登录聊天服
+                        //玩家unit上线后的初始化操作（针对业务逻辑）
+                        await UnitHelper.InitUnit(unit, isNewPlayer);
+                        long unitId = unit.Id;
+
+                        //map1 map2等 是为了分摊服务器压力？ 类似魔兽世界？
+                        StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "Map1");
+
+                        // 等到一帧的最后面再传送，先让G2C_EnterMap返回，否则传送消息可能比G2C_EnterMap还早
+                        TransferHelper.TransferAtFrameFinish(unit, startSceneConfig.ActorId, startSceneConfig.Name).Coroutine();
+                        player.UnitId = unitId;
+                        response.MyUnitId = unitId;
+                        player.PlayerState = PlayerState.Game;
+                    }
+                    catch (Exception e)
+                    {
+
+                        Log.Error($"角色进入游戏逻辑服出现问题 账号Id: {player.Account}  角色Id: {player.Id}   异常信息： {e}");
+                        response.Error = ErrorCode.ERR_EnterGameError;
+                        await DisconnectHelper.KickPlayerNoLock(player);
+                        session.Disconnect().Coroutine();
+                    }
+                }
+            }
+        }
+
+        private async ETTask<ActorId> EnterWorldChatServer(Unit unit, Player player)
+        {
+            StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(unit.Zone(), "ChatInfo");
+
+            G2Chat_EnterChat g2ChatEnterChat = G2Chat_EnterChat.Create();
+            g2ChatEnterChat.UnitId = unit.Id;
+            g2ChatEnterChat.Name = unit.GetComponent<UnitRoleInfo>().Name;
+            g2ChatEnterChat.PlayerSessionComponentActorId = player.GetComponent<PlayerSessionComponent>().GetActorId();
+            Chat2G_EnterChat chat2GEnterChat = await unit.Root().GetComponent<MessageSender>().Call(startSceneConfig.ActorId, g2ChatEnterChat) as Chat2G_EnterChat;
+            return chat2GEnterChat.ChatInfoUnitActorId;
         }
     }
 }

@@ -16,5 +16,9 @@
         public PlayerState PlayerState { get; set; }
         
         public long UnitId { get; set; }
+        
+        public ActorId ChatInfoActorId { get; set; }
+        
+        public long ChatInfoInstanceId { get; set; }
     }
 }

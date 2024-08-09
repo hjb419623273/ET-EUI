@@ -39,6 +39,9 @@
                     var m2GRequestExitGame = (M2G_RequestExitGame)await player.Root().GetComponent<MessageLocationSenderComponent>()
                             .Get(LocationType.Unit).Call(player.UnitId, G2M_RequestExitGame.Create());
 
+                    //通知聊天服下线该用户
+                    var chat2GRequestExitChat = await player.Root().GetComponent<MessageSender>().Call(player.ChatInfoActorId, G2Chat_RequestExitChat.Create()) as Chat2G_RequestExitChat;
+                    
                     //通知移除账号角色登录信息
                     G2L_RemoveLoginRecord g2LRemoveLoginRecord = G2L_RemoveLoginRecord.Create();
                     g2LRemoveLoginRecord.AccountName = player.Account;

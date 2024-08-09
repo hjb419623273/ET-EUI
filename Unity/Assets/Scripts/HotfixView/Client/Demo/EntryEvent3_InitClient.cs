@@ -26,6 +26,7 @@ namespace ET.Client
             root.AddComponent<ForgeComponent>();                //打造
             root.AddComponent<TasksComponent>();                //任务
             root.AddComponent<RankComponent>();                 //排行榜
+            root.AddComponent<ChatComponent>();                 //聊天
             
             await root.AddComponent<RedDotComponent>().PreLoadGameObject();
             

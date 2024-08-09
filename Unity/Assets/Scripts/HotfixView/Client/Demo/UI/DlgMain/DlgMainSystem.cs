@@ -41,6 +41,12 @@ namespace ET.Client
 			{
 				return self.OnRankButtonClickHandler();
 			});
+			
+			self.View.E_ChatButtonButton.AddListenerAsync(() =>
+			{
+				return self.OnChatButtonClickHandler();
+			});
+			
 			//红点显示
 			RedDotHelper.AddRedDotNodeView(self.Root(), "Role",self.View.E_RoleInfoButtonButton.gameObject, Vector3.one, new Vector2(75, 55));
 		}
@@ -100,6 +106,12 @@ namespace ET.Client
 		public static async ETTask OnRankButtonClickHandler(this DlgMain self)
 		{
 			self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Rank);
+			await ETTask.CompletedTask;
+		}
+		
+		public static async ETTask OnChatButtonClickHandler(this DlgMain self)
+		{
+			self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Chat);
 			await ETTask.CompletedTask;
 		}
 	}

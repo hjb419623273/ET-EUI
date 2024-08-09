@@ -122,4 +122,9 @@
         public Unit Unit;
         public int  LevelId;
     }
+    
+    public struct UpdateChatInfo
+    {
+        public Scene Scene;
+    }
 }

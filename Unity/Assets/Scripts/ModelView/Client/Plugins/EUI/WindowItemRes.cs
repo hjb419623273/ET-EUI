@@ -15,6 +15,7 @@ namespace ET.Client
 			{ WindowID.WindowID_Forge, new List<string>(){"Item_production",}},
 			{ WindowID.WindowID_Task, new List<string>(){"Item_task",}},
 			{ WindowID.WindowID_Rank, new List<string>(){"Item_rank",}},
+			{ WindowID.WindowID_Chat, new List<string>(){"Item_chat",}},
         };
     }
 }

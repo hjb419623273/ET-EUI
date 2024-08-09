@@ -80,6 +80,35 @@ namespace ET.Server
                     }
                     break;
                 }
+                case IActorChatInfoRequest actorChatInfoRequest:
+                {
+                    Player player = session.GetComponent<SessionPlayerComponent>().Player;
+                    if (player == null || player.IsDisposed)
+                    {
+                        break;
+                    }
+
+                    int rpcId = actorChatInfoRequest.RpcId;  //这里要保存客户端的rpcId
+                    long instanceId = session.InstanceId;
+                    Log.Warning($"chatInfoPlayer Component, form : {player.ChatInfoActorId} ChatUnit.InstanceId:{player.ChatInfoActorId.InstanceId}");
+                    IResponse iResponse = await session.Root().GetComponent<MessageSender>().Call(player.ChatInfoActorId, actorChatInfoRequest);
+                    iResponse.RpcId = rpcId;
+                    if (session.InstanceId == instanceId)
+                    {
+                        session.Send(iResponse);
+                    }
+                    break;
+                }
+                case IActorChatInfoMessage actorChatInfoMessage:
+                {
+                    Player player = session.GetComponent<SessionPlayerComponent>().Player;
+                    if (player == null || player.IsDisposed)
+                    {
+                        break;
+                    }
+                    session.Root().GetComponent<MessageSender>().Send(player.ChatInfoActorId, actorChatInfoMessage);
+                    break;
+                }
                 case IRequest actorRequest:  // 分发IActorRequest消息，目前没有用到，需要的自己添加
                 {
                     break;

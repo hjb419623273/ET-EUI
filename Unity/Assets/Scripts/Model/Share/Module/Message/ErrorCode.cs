@@ -105,6 +105,9 @@ namespace ET
         
         public const int ERR_TaskRewarded                = 2000044;
 
-        public const int ERR_NoTaskExist               = 2000045;
+        public const int ERR_NoTaskExist                 = 2000045;
+        
+        public const int ERR_ChatMessageEmpty            = 2000046;
+        
     }
 }

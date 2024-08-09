@@ -343,3 +343,36 @@ message UnitCache2Other_DeleteUnit //IResponse
 }
 
 //end--------------------玩家缓存相关--------------------
+
+//-----------------------Chat相关-----------------------
+//ResponseType Chat2G_EnterChat
+message G2Chat_EnterChat // IRequest
+{
+	int32 RpcId = 90;
+	string Name = 1;
+	int64 UnitId = 2;
+	ActorId PlayerSessionComponentActorId = 3;
+}
+
+message Chat2G_EnterChat // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	ActorId ChatInfoUnitActorId = 1;
+	int64 ChatInfoUnitInstanceID = 2;
+}
+
+//ResponseType Chat2G_RequestExitChat
+message G2Chat_RequestExitChat // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message Chat2G_RequestExitChat // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//end--------------------Chat相关-----------------------

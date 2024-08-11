@@ -38,9 +38,9 @@ namespace ET
             return this.ClientScenesByName[zone][name];
         }
 
-        public StartSceneConfig GetUnitCacheConfig(long unitId)
+        public StartSceneConfig GetUnitCacheConfig(int zone)
         {
-            int zone = UnitIdStruct.GetUnitZone(unitId);
+            // int zone = UnitIdStruct.GetUnitZone(unitId);
             return UnitCaches[zone];
         }
         public override void EndInit()

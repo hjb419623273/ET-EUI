@@ -1,0 +1,156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b02dfa7aa9d4545b3417a18477fbee, type: 3}
+  m_Name: BuildinFileManifest
+  m_EditorClassIdentifier: 
+  BuildinFiles:
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_aotdlls_db148df0a6fb19b738fb143f109ccf4a.bundle
+    FileCRC32: ff948aae
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_atlas_551a46ae338c75949554b2b9150cf084.bundle
+    FileCRC32: 3aaf1ee9
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_atlas_common_13558c22fd521d7adf249d85f89e07ba.bundle
+    FileCRC32: 004efa2d
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_code_2d2ee60135d61001057783fe3e899dda.bundle
+    FileCRC32: 3093942e
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_config_2c58d9d2135b417cd09e457f4241d40c.bundle
+    FileCRC32: 76730d52
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_other_c467a2c6891517858adc40a8c943ffa5.bundle
+    FileCRC32: d985c4f5
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_scenes_map1_48527f8bf5d5305d78f6c311618475e1.bundle
+    FileCRC32: 2e7222fb
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_scenes_map2_098b76f80759c8b3450eafbb9f437d54.bundle
+    FileCRC32: 8da1818a
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_scenes_map3_2da53aa24a25bb87067f81fbb38737db.bundle
+    FileCRC32: 5b628dfa
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_common_20190dae88f1150fe4bb9a2ba0e10c9b.bundle
+    FileCRC32: 11174fa8
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_dlg_48255148831ad452d3dbfebf4ae3a0d4.bundle
+    FileCRC32: a52815ab
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_ui_item_29fe57a70037fb03fd26fe6e7def93b7.bundle
+    FileCRC32: 311ae249
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_unit_baoyu_2e6ba8fe87ca4c294bd2cc594cc00380.bundle
+    FileCRC32: db3691af
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_unit_knight_9d7af5b4a2759b1f4e9d336d1f864f26.bundle
+    FileCRC32: 1a4e733b
+  - PackageName: DefaultPackage
+    FileName: assets_bundles_unit_unit_ecb64c0f44547aadb39193b21baa3b15.bundle
+    FileCRC32: ef7bc50d
+  - PackageName: DefaultPackage
+    FileName: share_assets_bundles_scenes_77a918b8765e9088dc7586d1ad687462.bundle
+    FileCRC32: 06877445
+  - PackageName: DefaultPackage
+    FileName: share_assets_bundles_scenes_map1_920dce291c857050a3b676b7cef329e2.bundle
+    FileCRC32: 630f0111
+  - PackageName: DefaultPackage
+    FileName: share_assets_bundles_scenes_map2_4ade15e35925d9b8a308f70dca7a9ad0.bundle
+    FileCRC32: c744e21e
+  - PackageName: DefaultPackage
+    FileName: share_assets_bundles_scenes_map3_0b6699e344e22661d994c18cc9b4ceeb.bundle
+    FileCRC32: 97a8f356
+  - PackageName: DefaultPackage
+    FileName: share_assets_plugins_textmesh pro_fonts_34468375067b6ca71f5c5c8d9ad9dfb4.bundle
+    FileCRC32: dd2f65a6
+  - PackageName: DefaultPackage
+    FileName: share_assets_plugins_textmesh pro_resources_fonts & materials_c5aa30df9a7fe8eaa0b9949843bbfc64.bundle
+    FileCRC32: 22daf5a0
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_armor_5aafc16369bc6c40e74697a455e9886a.bundle
+    FileCRC32: b1badd0b
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_arrow_0ef93d34aeaa3fc836544a70ce7bea6b.bundle
+    FileCRC32: 3462f209
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_boots_e9fdacc2ca9d4aeb28bba5398eae0aaa.bundle
+    FileCRC32: 8f6c1682
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_bow_a1d5e58f7cfc15538c3015483e69d132.bundle
+    FileCRC32: dc0ed557
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_gloves_7742f324aa0d15380537ef415717e378.bundle
+    FileCRC32: 761ae211
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_helmet_d24ea63fbb82adc2a6f3ccc940e89293.bundle
+    FileCRC32: 42270ddf
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_meleeweapon1h_e480ce2120751c566b736035254adb99.bundle
+    FileCRC32: 20da285d
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_meleeweapon2h_ff59a77935bca7f33cb5c419699d15a8.bundle
+    FileCRC32: 17df1032
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_other_misc_04f09282063fc437d2487e43becfb08a.bundle
+    FileCRC32: 78172547
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_other_ring_dbb95deaa3de67ceb6b11cde419eaf0c.bundle
+    FileCRC32: e50b9d02
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_fantasyiconspackfree_icons_shield_f5bff8f6deac5b28ec26d7a6d1234c38.bundle
+    FileCRC32: d6b4a63c
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_knight files_animation_7ddf67387435686f8f56f3527c643c2c.bundle
+    FileCRC32: dbf7797d
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_knight files_body parts_e6bccbbfb6dd3f2e39fd38c68866f410.bundle
+    FileCRC32: c7ab9d8e
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_knight files_f7be5a1e1f46fe1d02fae46e1bfa010f.bundle
+    FileCRC32: 31a588f4
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_knight files_knight png_f0f073cba475f9bef15256b403f47c50.bundle
+    FileCRC32: df2bb6e1
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_mat_909b8b1cd87691b17646e721d75a9d5f.bundle
+    FileCRC32: f2cda306
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_ninja files_animation_ff0e80711a7d64e816412156e51291fd.bundle
+    FileCRC32: 606eae2e
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_ninja files_ninja png_sword_c86745cf910cdb506520a7166e7d6390.bundle
+    FileCRC32: 6a9a8522
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_unit_skeleton_59c19a5b2dc9d74a5b27f0e76fe8fb87.bundle
+    FileCRC32: 46781305
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_unit_skeleton_ani_796b15c776d0b6f3002e009b0546a5b9.bundle
+    FileCRC32: 1f3de453
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_unit_skeleton_ani_materials_10e925faac95a0d2cabeb8f276ad55d4.bundle
+    FileCRC32: a2c6ba61
+  - PackageName: DefaultPackage
+    FileName: share_assets_res_unit_skeleton_texture_bfa687ee7b2e139c23036255c2031a87.bundle
+    FileCRC32: 617c05d3
+  - PackageName: DefaultPackage
+    FileName: share_packages_com_unity_ai_navigation_gizmos_ead04bc67ca79cf2d1c96ffefc3e20eb.bundle
+    FileCRC32: 99e4b544
+  - PackageName: DefaultPackage
+    FileName: share_packages_com_unity_render-pipelines_universal_runtime_materials_00e192d7ceb95832e743597b6ce19860.bundle
+    FileCRC32: f004b9bb
+  - PackageName: DefaultPackage
+    FileName: share_packages_com_unity_textmeshpro_editor resources_gizmos_8f2cc9d10b064bf858ba4828da04451d.bundle
+    FileCRC32: a06a6722
+  - PackageName: DefaultPackage
+    FileName: unityshaders_cfdec1ea77ea1034465568b91433d580.bundle
+    FileCRC32: b9445a92

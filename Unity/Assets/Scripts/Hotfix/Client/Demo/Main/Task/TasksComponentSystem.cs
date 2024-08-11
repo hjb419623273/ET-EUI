@@ -52,7 +52,7 @@ namespace ET.Client
             self.TaskInfoList.Sort((a, b) =>
             {
                 TaskInfo info = b;
-                return info.TaskState = info.TaskState;
+                return info.TaskState - info.TaskState;
             });
             return self.TaskInfoList.Count;
         }

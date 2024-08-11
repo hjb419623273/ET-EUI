@@ -5,7 +5,7 @@
     {
         protected override async ETTask Run(Scene scene, UpdateChatInfo args)
         {
-            // scene.Root().GetComponent<UIComponent>()?.GetDlgLogic<DlgChat>()a
+            scene.Root().GetComponent<UIComponent>()?.GetDlgLogic<DlgChat>()?.Refresh();
             await ETTask.CompletedTask;
         }
     }

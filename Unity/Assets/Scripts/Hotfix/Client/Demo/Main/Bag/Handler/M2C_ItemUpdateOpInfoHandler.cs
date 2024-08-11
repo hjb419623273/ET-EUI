@@ -1,6 +1,4 @@
-﻿using ET.Server;
-
-namespace ET.Client
+﻿namespace ET.Client
 {
     [MessageHandler(SceneType.Demo)]
     public class M2C_ItemUpdateOpInfoHandler : MessageHandler<Scene, M2C_ItemUpdateOpInfo>
